@@ -20,7 +20,8 @@
             var deferred = $q.defer();
 
             var newTodo = new Todo({
-                name: todo.name
+                name: todo.name,
+                belongsTo: todo.belongsTo
             });
 
             newTodo.save(function (err, todo) {

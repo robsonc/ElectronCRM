@@ -26,6 +26,9 @@
     "electron-prebuilt": "^1.2.0"
   },
   "dependencies": {
+    "async": "^2.0.1",
+    "google-auth-library": "^0.9.8",
+    "googleapis": "^12.1.0",
     "mongoose": "^4.5.8"
   }
 }

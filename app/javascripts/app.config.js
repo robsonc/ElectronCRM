@@ -23,6 +23,14 @@
             url: '',
             templateUrl: './partials/main.html',
             controller: 'MainController as main'
+        }).state('app.doLists', {
+            url: 'do-lists',
+            templateUrl: './partials/do-lists.html',
+            controller: 'DoListsController as doListsCtrl'
+        }).state('app.doList', {
+            url: 'do-list/:doListId',
+            templateUrl: './partials/do-list.html',
+            controller: 'DoListController as doListCtrl'
         }).state('app.companies', {
             url: 'companies',
             template: '<h1>Companies</h1>'

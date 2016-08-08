@@ -2,7 +2,9 @@
     'use strict';
 
     var mongoose = require('mongoose');
-    var Todo = require('./../../models/todo');
+    var async = require('async');
+    var Todo = require('./../models/todo');
+    var DoList = require('./../models/do-list');
 
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://localhost/todolistdb');
@@ -11,5 +13,7 @@
 
     angular.module('TodoList')
         .constant('$mongoose', mongoose)
-        .constant('Todo', Todo);
+        .constant('async', async)
+        .constant('Todo', Todo)
+        .constant('DoList', DoList);
 })();
