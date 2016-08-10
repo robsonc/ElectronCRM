@@ -11,7 +11,8 @@
             findAll: findAll,
             findById: findById,
             save: save,
-            remove: remove
+            remove: remove,
+            reorder: reorder
         };
 
         return service;
@@ -38,13 +39,13 @@
             DoList.find({}).exec(function (err, doLists) {
                 if (err) deferred.reject(err);
                 async.each(doLists, function (doList, done) {
-                    Todo.find({ belongsTo: doList }).exec(function (err, todos) {
+                    Todo.find({ belongsTo: doList }).sort({ priority: 1 }).exec(function (err, todos) {
                         if (err) done(err);
                         doList.todos = todos;
                         done();
                     });
-                }, function(err){
-                    if(err) deferred.reject(err);
+                }, function (err) {
+                    if (err) deferred.reject(err);
                     deferred.resolve(doLists);
                 });
             });
@@ -57,7 +58,7 @@
 
             DoList.findById(id).exec(function (err, doList) {
                 if (err) deferred.reject(err);
-                Todo.find({ belongsTo: doList }).exec(function (err, todos) {
+                Todo.find({ belongsTo: doList }).sort({ priority: 1 }).exec(function (err, todos) {
                     doList.todos = todos;
                     deferred.resolve(doList);
                 });
@@ -79,6 +80,27 @@
                 } else {
                     deferred.reject('Do List does not exists!');
                 }
+            });
+
+            return deferred.promise;
+        }
+
+        function reorder(todos) {
+            var deferred = $q.defer();
+
+            for (var i = 0; i < todos.length; i++) {
+                var todo = todos[i];
+                todo.priority = i;
+            }
+
+            async.each(todos, function (todo, done) {
+                todo.save(function (err) {
+                    if (err) return done(err);
+                    done();
+                });
+            }, function (err) {
+                if (err) return deferred.reject(err);
+                deferred.resolve(todos);
             });
 
             return deferred.promise;

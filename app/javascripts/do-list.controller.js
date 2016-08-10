@@ -5,9 +5,20 @@
         .module('TodoList')
         .controller('DoListController', DoListController);
 
-    DoListController.$inject = ['DoListService', '$stateParams', '$window', 'TodoService', '$state'];
-    function DoListController(DoListService, $stateParams, $window, TodoService, $state) {
+    DoListController.$inject = ['DoListService', '$stateParams', '$window', 'TodoService', '$state', '_'];
+    function DoListController(DoListService, $stateParams, $window, TodoService, $state, _) {
         var vm = this;
+
+        vm.sortableOptions = {
+            axis: 'y',
+            serialize: {key: 'priority'},
+            stop: function(evt, ui){
+                //var newPriorities = _.map(ui.item.sortable.sourceModel, 'priority');
+                DoListService.reorder(ui.item.sortable.sourceModel).then(function(todos){
+                    console.log('To-dos reordered!');
+                });
+            }
+        };
 
         vm.back = back;
         vm.addTodo = addTodo;
@@ -30,7 +41,6 @@
         }
 
         function addTodo(todo) {
-            console.log(vm.doList);
             TodoService.save({ name: todo.name, belongsTo: vm.doList }).then(function (todo) {
                 vm.doList.todos.push(todo);
                 vm.todo = {};

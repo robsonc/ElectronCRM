@@ -16,17 +16,19 @@
                 </form>
             </div>
         </div>
-        
-        <div class="panel panel-default do-list-panel" ng-repeat="doList in doListsCtrl.doLists">
-            <div class="panel-heading">
-                <a ui-sref="app.doList({doListId: doList._id})"><i class="fa fa-list"></i> {{doList.name}}</a>
-            </div>
-            <div class="panel-body">
-               <ul ng-repeat="todo in doList.todos">
-                   <li>{{todo.name}}</li>
-               </ul>
+
+        <div class="do-lists-container">
+            <div class="panel panel-default do-list-panel" ng-repeat="doList in doListsCtrl.doLists">
+                <div class="panel-heading">
+                    <a ui-sref="app.doList({doListId: doList._id})"><i class="fa fa-list"></i> {{::doList.name}}</a>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li ng-repeat="todo in doList.todos track by todo._id">{{::todo.priority}} - {{::todo.name}}</li>
+                    </ul>
+                </div>
             </div>
         </div>
-        
+
     </div>
 </div>

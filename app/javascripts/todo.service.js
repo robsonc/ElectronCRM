@@ -35,7 +35,7 @@
         function findAll() {
             var deferred = $q.defer();
 
-            Todo.find({}).sort({createdAt: -1}).exec(function (err, todos) {
+            Todo.find({}).sort({priority: 1}).exec(function (err, todos) {
                 if (err) deferred.reject(err);
                 deferred.resolve(todos);
             });

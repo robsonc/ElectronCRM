@@ -17,8 +17,8 @@
         </form>
     </div>
 </div>
-<ul class="todo-list">
-    <li class="todo-list-item" ng-repeat="todo in doListCtrl.doList.todos">{{todo.name}}
+<ul class="todo-list" ui-sortable="doListCtrl.sortableOptions" ng-model="doListCtrl.doList.todos">
+    <li class="todo-list-item" ng-repeat="todo in doListCtrl.doList.todos track by todo.priority">{{todo.priority}} - {{todo.name}}
         <span>- {{todo.createdAt | date:'dd/MM/yyyy - hh:mm:ss'}}</span>
         <button class="btn btn-default btn-xs pull-right" ng-click="doListCtrl.removeTodo(todo, $index)">
             <i class="fa fa-minus"></i>

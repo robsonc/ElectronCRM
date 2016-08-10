@@ -19,8 +19,11 @@
 <script>
     // You can also require other files to run in this process
     require('./../renderer.js')
+    window.$ = window.jQuery = require('./../bower_components/jquery/dist/jquery.js');
+    require('./../bower_components/jquery-ui/jquery-ui.js');
     require('./../bower_components/angular/angular.js');
     require('./../bower_components/angular-ui-router/release/angular-ui-router.js');
+    require('./../bower_components/angular-ui-sortable/sortable.js');
     require('./javascripts/app.js');
     require('./javascripts/app.config.js');
     require('./javascripts/main.controller.js');

@@ -3,15 +3,18 @@ const electron = require('electron')
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+const ipcMain = electron.ipcMain;
+
+const googleApi = require('./app/libs/google-api.js');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
 function createWindow() {
+
     // Create the browser window.
     mainWindow = new BrowserWindow({ width: 800, height: 600, show: false })
-    
 
     // and load the index.html of the app.
     mainWindow.loadURL(`file://${__dirname}/app/index.html`)
@@ -33,6 +36,14 @@ function createWindow() {
         mainWindow = null
     })
 }
+
+ipcMain.on('google-grant-permission', function (evt, arg) {
+    googleApi.showPermissionDialog();
+});
+
+ipcMain.on('google-authorize', function (evt, args) {
+    googleApi.authorize(args.code);
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
