@@ -9,20 +9,19 @@
     var GoogleCalendarService = require('./../libs/google-calendar-api');
     var ipcRenderer = require('electron').ipcRenderer;
 
-    /*Todo.find({ belongsTo: '57a9db13d842c70c2d94f167' }).exec(function (err, todos) {
-        if (err) return console.log(err);
-        console.log(todos.length);
-        var priority = 0;
-        todos.forEach(function (todo) {
-            todo.priority = priority++;
-            todo.save();
-        });
-    });*/
-
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://localhost/todolistdb');
+/*    mongoose.options = {
+        debug: true
+    };*/
 
-    angular.module('TodoList', ['ui.router', 'ui.sortable']);
+    angular.module('TodoList', [
+        'ui.router', 
+        'ui.sortable', 
+        'ui.bootstrap', 
+        'ui.bootstrap.tpls', 
+        'ngAnimate'
+    ]);
 
     angular.module('TodoList')
         .constant('$mongoose', mongoose)

@@ -5,25 +5,44 @@
         .module('TodoList')
         .controller('DoListController', DoListController);
 
-    DoListController.$inject = ['DoListService', '$stateParams', '$window', 'TodoService', '$state', '_'];
-    function DoListController(DoListService, $stateParams, $window, TodoService, $state, _) {
+    DoListController.$inject = [
+        'DoListService', 
+        '$stateParams', 
+        '$window', 
+        'TodoService', 
+        '$state', 
+        '_', 
+        '$filter', 
+        '$scope', 
+        'GoogleCalendarService',
+        '$uibModal'
+    ];
+    
+    function DoListController(DoListService, $stateParams, $window, TodoService, 
+        $state, _, $filter, $scope, GoogleCalendarService, $uibModal) {
+        
         var vm = this;
+
+        vm.startDatepicker = {
+            opened: false
+        };
 
         vm.sortableOptions = {
             axis: 'y',
-            serialize: {key: 'priority'},
-            stop: function(evt, ui){
-                //var newPriorities = _.map(ui.item.sortable.sourceModel, 'priority');
-                DoListService.reorder(ui.item.sortable.sourceModel).then(function(todos){
+            stop: function (evt, ui) {
+                var reorderedTodos = ui.item.sortable.sourceModel;
+                DoListService.reorder(reorderedTodos).then(function success(todos) {
                     console.log('To-dos reordered!');
                 });
             }
         };
 
-        vm.back = back;
         vm.addTodo = addTodo;
         vm.removeTodo = removeTodo;
         vm.removeDoList = removeDoList;
+        vm.doneTodo = doneTodo;
+        vm.showSettings = showSettings;
+        vm.openStartDatepicker = openStartDatepicker;
 
         activate();
 
@@ -31,34 +50,94 @@
 
         function activate() {
             var doListId = $stateParams.doListId;
-            DoListService.findById(doListId).then(function (doList) {
+            DoListService.findById(doListId).then(function success(doList) {
                 vm.doList = doList;
+                sort('isDone');
             });
         }
 
-        function back() {
-            $window.history.back();
-        }
-
-        function addTodo(todo) {
-            TodoService.save({ name: todo.name, belongsTo: vm.doList }).then(function (todo) {
+        function addTodo(newTodo) {
+            TodoService.save({
+                name: newTodo.name,
+                startDate: newTodo.startDate,
+                startTime: newTodo.startTime,
+                belongsTo: vm.doList
+            }).then(function success(todo) {
                 vm.doList.todos.push(todo);
                 vm.todo = {};
-            });
-        };
-
-        function removeTodo(todo, $index) {
-            TodoService.remove(todo._id).then(function () {
-                vm.doList.todos.splice($index, 1);
-            }, function (err) {
-                console.log('Erro ao remove todo ' + err);
+                sort('isDone');
+                
+                if(newTodo.addToCalendar) {
+                    GoogleCalendarService.save({
+                        summary: todo.name,
+                        startDate: todo.startDate,
+                        startTime: todo.startTime
+                    }).then(function success() {
+                        console.log('event created on calendar');
+                    }, function error(err){
+                        console.log(err);
+                    });
+                }
+                
             });
         }
 
-        function removeDoList(doList){
-            DoListService.remove(doList._id).then(function(){
-                $state.go('app.doLists');
+        function removeTodo(todo, $index) {
+
+            var confirmDialog = $uibModal.open({
+                controller: 'ConfirmDialogController as confirmDialogCtrl',
+                templateUrl: './partials/confirm-dialog.html'
             });
+
+            confirmDialog.result.then(function(){
+                TodoService.remove(todo._id).then(function success() {
+                    vm.doList.todos.splice($index, 1);
+                    sort('isDone');
+                }, function error(err) {
+                    console.log('Erro ao remove todo ' + err);
+                });
+            });
+        }
+
+        function removeDoList(doList) {
+
+            var confirmDialog = $uibModal.open({
+                controller: 'ConfirmDialogController as confirmDialogCtrl',
+                templateUrl: './partials/confirm-dialog.html'
+            });
+
+            confirmDialog.result.then(function(){
+                DoListService.remove(doList._id).then(function success() {
+                    $state.go('app.doLists');
+                });
+            });
+        }
+
+        function doneTodo(todo, $index) {
+            if (todo.isDone) {
+                TodoService.undone(todo._id).then(function success() {
+                    todo.undo();
+                    sort('priority');
+                    sort('isDone');
+                });
+            } else {
+                TodoService.done(todo._id).then(function success() {
+                    todo.do();
+                    sort('isDone');
+                });
+            }
+        }
+
+        function sort(property) {
+            vm.doList.todos = $filter('orderBy')(vm.doList.todos, property);
+        }
+
+        function showSettings(doList) {
+            $state.go('app.doListSettings', { doListId: doList._id });
+        }
+
+        function openStartDatepicker() {
+            vm.startDatepicker.opened = true;
         }
     }
 })();

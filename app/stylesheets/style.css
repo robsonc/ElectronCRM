@@ -1,7 +1,37 @@
 body { padding-top: 70px; }
 
 .navbar-default {
-    background-color: #4afc8b;
+    background-color: #6B4FBB;
+}
+
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #fba225;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+    color: #fba225;
+}
+
+.panel-default>.panel-heading {
+    color: #fff;
+    background-color: #6B4FBB;
+}
+
+.panel-default>.panel-heading a, .panel-default>.panel-heading a:hover {
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #fba225;
+    border-color: #FC6D26;
 }
 
 .do-lists-container {
@@ -19,11 +49,11 @@ body { padding-top: 70px; }
 }
 
 .do-list-panel .panel-body ul {
-    padding-left: 0;
+    padding-left: 15px;
 }
 
 .do-list-panel .panel-body ul li {
-    list-style: none;
+    list-style-type: circle;
 }
 
 .todo-list {
@@ -34,4 +64,8 @@ body { padding-top: 70px; }
 .todo-list .todo-list-item {
     height: 30px;
     border-bottom: 1px solid #ddd;
+}
+
+.done {
+    text-decoration: line-through;
 }

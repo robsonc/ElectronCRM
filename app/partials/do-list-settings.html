@@ -1,0 +1,15 @@
+<back-button />
+<h1>{{doListSettingsCtrl.doList.name}} Settings</h1>
+<form>
+    <div class="form-group">
+        <label><strong>Name</strong></label>
+        <input type="text" class="form-control" ng-model="doListSettingsCtrl.doList.name">
+    </div>
+    <div class="form-group">
+        <label><strong>Color</strong></label>
+        <input type="color" class="form-control" ng-model="doListSettingsCtrl.doList.color">
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" ng-click="doListSettingsCtrl.save(doListSettingsCtrl.doList)">Save</button>
+    </div>
+</form>

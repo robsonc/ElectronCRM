@@ -30,13 +30,15 @@ module.exports = {
 function save(event) {
     var deferred = q.defer();
 
+    var startDatetime = createDatetime(event.startDate, event.startTime);
+
     event = {
         summary: event.summary,
         start: {
-            dateTime: moment().toISOString()
+            dateTime: moment(startDatetime).toISOString()
         },
         end: {
-            dateTime: moment().toISOString()
+            dateTime: moment(startDatetime).toISOString()
         }
     };
 
@@ -52,13 +54,22 @@ function save(event) {
     return deferred.promise;
 }
 
+function createDatetime(date, time) {
+    return new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        time.getHours(),
+        time.getMinutes(),
+        time.getSeconds()
+    );
+}
+
 function get(limitOfEvents) {
     var deferred = q.defer();
 
     var limit = 10;
     if (limitOfEvents) limit = limitOfEvents;
-
-    console.log(calendar.events.reminders);
 
     calendar.events.list({
         auth: oauth2Client,

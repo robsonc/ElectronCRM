@@ -6,13 +6,16 @@
         .factory('DoListService', DoListService);
 
     DoListService.$inject = ['DoList', 'Todo', '$q', 'async'];
+
     function DoListService(DoList, Todo, $q, async) {
         var service = {
             findAll: findAll,
             findById: findById,
             save: save,
+            update: update,
             remove: remove,
-            reorder: reorder
+            reorder: reorder,
+            sortable: sortable
         };
 
         return service;
@@ -22,7 +25,8 @@
             var deferred = $q.defer();
 
             var doList = new DoList({
-                name: doList.name
+                name: doList.name,
+                color: doList.color
             });
 
             doList.save(function (err, doList) {
@@ -33,10 +37,28 @@
             return deferred.promise;
         }
 
+        function update(id, data) {
+            var deferred = $q.defer();
+
+            DoList.findById(id, function (err, doList) {
+                if (err) deferred.reject(err);
+
+                doList.name = data.name;
+                doList.color = data.color;
+
+                doList.save(function (err, doList) {
+                    if (err) deferred.reject(err);
+                    deferred.resolve(doList);
+                });
+            });
+
+            return deferred.promise;
+        }
+
         function findAll() {
             var deferred = $q.defer();
 
-            DoList.find({}).exec(function (err, doLists) {
+            DoList.find({}).sort({position: 1}).exec(function (err, doLists) {
                 if (err) deferred.reject(err);
                 async.each(doLists, function (doList, done) {
                     Todo.find({ belongsTo: doList }).sort({ priority: 1 }).exec(function (err, todos) {
@@ -101,6 +123,27 @@
             }, function (err) {
                 if (err) return deferred.reject(err);
                 deferred.resolve(todos);
+            });
+
+            return deferred.promise;
+        }
+
+        function sortable(doLists) {
+            var deferred = $q.defer();
+
+            for (var i = 0; i < doLists.length; i++) {
+                var doList = doLists[i];
+                doList.position = i;
+            }
+
+            async.each(doLists, function (doList, done) {
+                doList.save(function (err) {
+                    if (err) return done(err);
+                    done();
+                });
+            }, function (err) {
+                if (err) return deferred.reject(err);
+                deferred.resolve(doLists);
             });
 
             return deferred.promise;

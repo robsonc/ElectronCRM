@@ -1,18 +1,11 @@
 {
-  "name": "electron-quick-start",
-  "description": "A minimal Electron application",
+  "name": "Ragnarok Project",
+  "description": "A multi task tool",
   "main": "main.js",
   "authors": [
-    "GitHub"
+    "Robson Coutinho"
   ],
   "license": "CC0-1.0",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial"
-  ],
-  "homepage": "https://github.com/electron/electron-quick-start",
   "private": true,
   "ignore": [
     "**/.*",
@@ -25,6 +18,11 @@
     "angular": "^1.5.8",
     "angular-ui-router": "^0.3.1",
     "jquery": "^3.1.0",
-    "angular-ui-sortable": "^0.14.3"
+    "angular-ui-sortable": "^0.14.3",
+    "angular-ui-bootstrap": "^2.0.1",
+    "angular-animate": "^1.5.8",
+    "angular-bootstrap": "^2.0.1",
+    "font-awesome": "fontawesome#^4.6.3",
+    "bootstrap": "^3.3.7"
   }
 }

@@ -9,6 +9,10 @@
                         <input type="text" class="form-control" ng-model="doListsCtrl.doList.name">
                     </div>
                     <div class="form-group">
+                        <label><strong>Color</strong></label>
+                        <input style="width: 75px;" type="color" class="form-control" ng-model="doListsCtrl.doList.color">
+                    </div>
+                    <div class="form-group">
                         <button class="btn btn-primary" ng-click="doListsCtrl.addDoList(doListsCtrl.doList)">
                             <i class="fa fa-plus"></i> Add
                         </button>
@@ -17,14 +21,14 @@
             </div>
         </div>
 
-        <div class="do-lists-container">
+        <div class="do-lists-container" ui-sortable="doListsCtrl.sortableOptions" ng-model="doListsCtrl.doLists">
             <div class="panel panel-default do-list-panel" ng-repeat="doList in doListsCtrl.doLists">
-                <div class="panel-heading">
-                    <a ui-sref="app.doList({doListId: doList._id})"><i class="fa fa-list"></i> {{::doList.name}}</a>
+                <div style="background-color: {{doList.color}} !important" class="panel-heading">
+                    <i style="cursor: move" class="fa fa-list"></i>&nbsp;&nbsp;&nbsp; <a ui-sref="app.doList({doListId: doList._id})">{{::doList.name}}</a>
                 </div>
                 <div class="panel-body">
                     <ul>
-                        <li ng-repeat="todo in doList.todos track by todo._id">{{::todo.priority}} - {{::todo.name}}</li>
+                        <li ng-class="{'done': todo.isDone}" ng-repeat="todo in doList.todos track by todo._id">{{::todo.name}}</li>
                     </ul>
                 </div>
             </div>

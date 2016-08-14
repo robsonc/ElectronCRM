@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Electron Todo Application</title>
+    <title>Ragnarok</title>
 
     <link rel="stylesheet" type="text/css" href="./stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./stylesheets/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./../bower_components/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
 </head>
 
@@ -22,8 +22,11 @@
     window.$ = window.jQuery = require('./../bower_components/jquery/dist/jquery.js');
     require('./../bower_components/jquery-ui/jquery-ui.js');
     require('./../bower_components/angular/angular.js');
+    require('./../bower_components/angular-animate/angular-animate.js');
     require('./../bower_components/angular-ui-router/release/angular-ui-router.js');
     require('./../bower_components/angular-ui-sortable/sortable.js');
+    require('./../bower_components/angular-bootstrap/ui-bootstrap-tpls.js');
+    require('./../bower_components/angular-bootstrap/ui-bootstrap.js');
     require('./javascripts/app.js');
     require('./javascripts/app.config.js');
     require('./javascripts/main.controller.js');
@@ -32,6 +35,9 @@
     require('./javascripts/do-list.controller.js');
     require('./javascripts/do-list.service.js');
     require('./javascripts/todo.service.js');
+    require('./javascripts/do-list-settings.controller.js');
+    require('./javascripts/confirm-dialog.controller.js');
+    require('./javascripts/back-button.directive.js');
   </script>
 
 </html>

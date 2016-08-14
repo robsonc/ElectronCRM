@@ -2,7 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var doListSchema = new Schema({
-    name: String
+    name: String,
+    color: String,
+    position: Number,
 }, {
     timestamps: true
 });

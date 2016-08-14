@@ -1,12 +1,22 @@
-<button class="btn btn-default" ng-click="main.permission()">Google Permission</button>
-<button class="btn btn-default" ng-click="main.authorize(main.google)">Google Auth</button>
-<div class="form-group">
-    <label>Permission Code</label>
-    <input class="form-control" type="text" ng-model="main.google.code">
+<div class="hidden">
+    <button class="btn btn-default" ng-click="main.permission()">
+        <i class="fa fa-google" aria-hidden="true"></i> Google Permission
+    </button>
+    <button class="btn btn-default" ng-click="main.authorize(main.google)">
+        <i class="fa fa-google" aria-hidden="true"></i> Google Auth
+    </button>
+
+    <div class="form-group">
+        <label>Permission Code</label>
+        <input class="form-control" type="text" ng-model="main.google.code">
+    </div>
+
+    <hr>
 </div>
-<hr>
-<h3>Next Events in Google Calendar</h3>
-<form>
+
+<h3><i class="fa fa-calendar" aria-hidden="true"></i> Google Calendar</h3>
+<h4>Next Events</h4>
+<!--<form>
     <div class="form-group">
         <label>Summary</label>
         <input class="form-control" type="text" ng-model="main.event.summary">
@@ -14,7 +24,8 @@
     <div class="form-group">
         <button class="btn btn-primary" ng-click="main.save(main.event)">Save</button>
     </div>
-</form>
+</form>-->
 <ul>
-    <li ng-repeat="event in main.events">{{event.summary}} - {{event.start.dateTime || event.start.date | date:'dd/MM/yyyy'}}</li>
+    <li ng-repeat="event in main.events">{{event.summary}} em {{event.start.dateTime || event.start.date | date:'dd/MM/yyyy'}} às {{event.start.dateTime || event.start.date
+        | date:'HH:mm'}}</li>
 </ul>

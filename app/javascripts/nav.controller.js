@@ -9,6 +9,6 @@
     function NavController() {
         var vm = this;
         
-        vm.name = 'Todo List';
+        vm.name = 'Ragnarok';
     }
 })();

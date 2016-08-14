@@ -47,3 +47,6 @@ typings.json
 .vscode
 jsconfig.json
 config.json
+
+#package
+Ragnarok-win32-x64
