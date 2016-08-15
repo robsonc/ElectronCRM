@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('TodoList')
+        .module('bs.dolists')
         .controller('DoListController', DoListController);
 
     DoListController.$inject = [

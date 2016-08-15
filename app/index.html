@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="./stylesheets/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./../bower_components/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="./javascripts/crm/stylesheets/crm.css">
 </head>
 
 <body>
@@ -27,15 +28,29 @@
     require('./../bower_components/angular-ui-sortable/sortable.js');
     require('./../bower_components/angular-bootstrap/ui-bootstrap-tpls.js');
     require('./../bower_components/angular-bootstrap/ui-bootstrap.js');
+    
+    //Application
     require('./javascripts/app.js');
     require('./javascripts/app.config.js');
+    //Main
     require('./javascripts/main.controller.js');
+    //Navigation
     require('./javascripts/nav.controller.js');
-    require('./javascripts/do-lists.controller.js');
-    require('./javascripts/do-list.controller.js');
-    require('./javascripts/do-list.service.js');
-    require('./javascripts/todo.service.js');
-    require('./javascripts/do-list-settings.controller.js');
+    //Do Lists
+    require('./javascripts/do-lists/do-lists.module.js');
+    require('./javascripts/do-lists/config/do-lists.config.js');
+    require('./javascripts/do-lists/config/do-lists.route.js');
+    require('./javascripts/do-lists/controllers/do-lists.controller.js');
+    require('./javascripts/do-lists/controllers/do-list.controller.js');
+    require('./javascripts/do-lists/controllers/do-list-settings.controller.js');
+    require('./javascripts/do-lists/services/do-list.service.js');
+    require('./javascripts/do-lists/services/todo.service.js');
+    //CRM
+    require('./javascripts/crm/crm.module.js');
+    require('./javascripts/crm/config/crm.config.js');
+    require('./javascripts/crm/config/crm.route.js');
+    require('./javascripts/crm/controllers/pipeline.controller.js');
+    //Shared
     require('./javascripts/confirm-dialog.controller.js');
     require('./javascripts/back-button.directive.js');
   </script>

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('TodoList')
+        .module('bs.dolists')
         .factory('DoListService', DoListService);
 
     DoListService.$inject = ['DoList', 'Todo', '$q', 'async'];

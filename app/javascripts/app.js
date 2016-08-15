@@ -16,6 +16,8 @@
     };*/
 
     angular.module('TodoList', [
+        'bs.dolists',
+        'bs.crm',
         'ui.router', 
         'ui.sortable', 
         'ui.bootstrap', 
