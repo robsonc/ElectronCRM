@@ -28,7 +28,7 @@
                 </div>
                 <div class="panel-body">
                     <ul>
-                        <li ng-class="{'done': todo.isDone}" ng-repeat="todo in doList.todos track by todo._id">{{::todo.name}}</li>
+                        <li ng-if="!todo.isDone" ng-repeat="todo in doList.todos track by todo._id">{{::todo.name}}</li>
                     </ul>
                 </div>
             </div>

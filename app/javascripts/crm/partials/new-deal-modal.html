@@ -1,0 +1,44 @@
+<form name="newDealCtrl.formNewDeal">
+    <div class="modal-header">
+        <p><strong>New Deal</strong></p>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label>Contact Name</label>
+            <input uib-typeahead="person as person.name for person in newDealCtrl.getPerson($viewValue)" type="text"
+                class="form-control" ng-model="newDealCtrl.deal.person"
+                typeahead-loading="loadingPersons" typeahead-no-results="noResultsPerson">
+            <i ng-show="loadingPersons" class="glyphicon glyphicon-refresh"></i>
+            <div ng-show="noResultsPerson">
+                <i class="glyphicon glyphicon-remove"></i> No Results Found
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Organization Name</label>
+            <input uib-typeahead="organization as organization.name for organization in newDealCtrl.getOrganization($viewValue)"
+                type="text" class="form-control" ng-model="newDealCtrl.deal.organization"
+                typeahead-loading="loadingOrganizations" typeahead-no-results="noResultsOrganization">
+            <i ng-show="loadingOrganizations" class="glyphicon glyphicon-refresh"></i>
+            <div ng-show="noResultsOrganization">
+                <i class="glyphicon glyphicon-remove"></i> No Results Found
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Deal Title</label>
+            <input type="text" class="form-control" ng-model="newDealCtrl.deal.title">
+        </div>
+        <div class="form-group">
+            <label>Deal Value</label>
+            <input type="text" class="form-control" ng-model="newDealCtrl.deal.value">
+        </div>
+        <div class="form-group">
+            <label>Stage</label>
+            <select class="form-control" ng-model="newDealCtrl.deal.stage" ng-options="stage as stage.name for stage in newDealCtrl.stages">
+
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="newDealCtrl.save(newDealCtrl.deal)">Save</button>
+    </div>
+</form>

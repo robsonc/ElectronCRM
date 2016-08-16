@@ -1,17 +1,16 @@
 <div class="row">
-    <div class="col-md-15 pipeline-column">
-        <p>Cliente Potencial</p>
+    <div class="col-md-12">
+        <button class="btn btn-primary" ng-click="pipelineCtrl.newDeal()">New Deal</button>
     </div>
-    <div class="col-md-15 pipeline-column">
-        <p>Contactado</p>
-    </div>
-    <div class="col-md-15 pipeline-column">
-        <p>Necessidades Definidas</p>
-    </div>
-    <div class="col-md-15 pipeline-column">
-        <p>Proposta Feita</p>
-    </div>
-    <div class="col-md-15 pipeline-column">
-        <p>Negociações Começadas</p>
+</div>
+<hr>
+<div class="row" ui-sortable ng-model="pipelineCtrl.stages">
+    <div class="col-md-15 pipeline-column" ng-repeat="stage in pipelineCtrl.stages" 
+        ui-sortable="pipelineCtrl.cardsSortableOptions" ng-model="stage.deals">
+        
+        <div class="panel-heading"><strong>{{stage.name}}</strong></div>
+        <div class="card panel panel-default" ng-repeat="deal in stage.deals">
+            <div class="panel-body">{{deal.title}}</div>
+        </div>
     </div>
 </div>

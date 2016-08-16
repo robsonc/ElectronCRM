@@ -10,6 +10,7 @@
         vm.permission = permission;
         vm.authorize = authorize;
         vm.save = save;
+        vm.closeAlert = closeAlert;
 
         activate();
 
@@ -17,6 +18,11 @@
             GoogleCalendarService.get(10).then(function (events) {
                 $rootScope.$apply(function () {
                     vm.events = events;
+                });
+            }, function(error){
+                $rootScope.$apply(function(){
+                    vm.error = "Houve um erro ao tentar conectar com Google Calendar";
+                    console.log(error);
                 });
             });
         }
@@ -40,6 +46,10 @@
             }, function (err) {
                 console.log(err);
             });
+        }
+
+        function closeAlert(){
+            vm.error = null;
         }
     }
 })();
