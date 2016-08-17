@@ -4,7 +4,7 @@
     </div>
     <div class="modal-body">
         <div class="form-group">
-            <label>Contact Name</label>
+            <label><strong>Contact Name</strong></label>
             <input uib-typeahead="person as person.name for person in newDealCtrl.getPerson($viewValue)" type="text"
                 class="form-control" ng-model="newDealCtrl.deal.person"
                 typeahead-loading="loadingPersons" typeahead-no-results="noResultsPerson">
@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label>Organization Name</label>
+            <label><strong>Organization Name</strong></label>
             <input uib-typeahead="organization as organization.name for organization in newDealCtrl.getOrganization($viewValue)"
                 type="text" class="form-control" ng-model="newDealCtrl.deal.organization"
                 typeahead-loading="loadingOrganizations" typeahead-no-results="noResultsOrganization">
@@ -24,15 +24,15 @@
             </div>
         </div>
         <div class="form-group">
-            <label>Deal Title</label>
+            <label><strong>Deal Title</strong></label>
             <input type="text" class="form-control" ng-model="newDealCtrl.deal.title">
         </div>
         <div class="form-group">
-            <label>Deal Value</label>
+            <label><strong>Deal Value</strong></label>
             <input type="text" class="form-control" ng-model="newDealCtrl.deal.value">
         </div>
         <div class="form-group">
-            <label>Stage</label>
+            <label><strong>Stage</strong></label>
             <select class="form-control" ng-model="newDealCtrl.deal.stage" ng-options="stage as stage.name for stage in newDealCtrl.stages">
 
             </select>
