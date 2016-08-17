@@ -5,8 +5,8 @@
         .module('bs.crm')
         .controller('PipelineController', PipelineController);
 
-    PipelineController.$inject = ['$uibModal', 'StageService'];
-    function PipelineController($uibModal, StageService) {
+    PipelineController.$inject = ['$uibModal', 'StageService', '$scope'];
+    function PipelineController($uibModal, StageService, $scope) {
         var vm = this;
 
         vm.stages = [];
@@ -18,6 +18,7 @@
                 if (ui.item.sortable.droptarget) {
                     var stageId = ui.item.sortable.droptarget.attr('id').split('-')[1];
                     var deal = ui.item.sortable.model;
+                    
                     StageService.addDeal(stageId, deal).then(function(){
                         console.log('change deal stage');
                     });
@@ -47,7 +48,6 @@
             });
 
             modalInstance.result.then(function(deal){
-                console.log(deal.title);
                 vm.stages.forEach(function(stage){
                     if (stage._id.equals(deal.stage._id)) {
                         stage.deals.push(deal);

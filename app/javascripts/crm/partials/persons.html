@@ -5,11 +5,15 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th>Phone</th>
+            <th>E-mail</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="person in personsCtrl.persons">
             <td>{{person.name}}</td>
+            <td>{{person.phone}}</td>
+            <td>{{person.email}}</td>
         </tr>
     </tbody>
 </table>

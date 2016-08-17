@@ -21,7 +21,9 @@
 
         function save(person){
             PersonService.save({
-                name: person.name
+                name: person.name,
+                phone: person.phone,
+                email: person.email
             }).then(function(person){
                 $uibModalInstance.close(person);
             });

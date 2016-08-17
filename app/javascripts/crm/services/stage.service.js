@@ -9,6 +9,7 @@
     function StageService($q, Stage, Deal, async) {
         return {
             findAll: findAll,
+            findById: findById,
             addDeal: addDeal
         };
 
@@ -28,6 +29,25 @@
                     if (err) deferred.reject(err);
                     deferred.resolve(stages);
                 });
+            });
+
+            return deferred.promise;
+        }
+
+        function findById(id){
+            var deferred = $q.defer();
+
+            Stage.findById(id).exec(function(err, stage){
+                if (err) deferred.reject(err);
+                if (stage) {
+                    Deal.find({stage: stage}).populate('person organization').exec(function(err, deals){
+                        if (err) deferred.reject(err);
+                        stage.deals = deals;
+                        deferred.resolve(stage);
+                    });
+                } else {
+                    deferred.reject("Stage not found");
+                }
             });
 
             return deferred.promise;

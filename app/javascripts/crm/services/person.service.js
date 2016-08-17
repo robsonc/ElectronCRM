@@ -18,7 +18,9 @@
             var deferred = $q.defer();
 
             var newPerson = Person({
-                name: person.name
+                name: person.name,
+                phone: person.phone,
+                email: person.email
             });
 
             newPerson.save(function(err, person){
