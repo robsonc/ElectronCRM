@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-12">
+        <back-button></back-button>
+        <button class="btn btn-danger pull-right" ng-click="dealCtrl.remove(dealCtrl.deal)">Delete</button>
+        <h1>{{dealCtrl.deal.title}}</h1>
+        <p><span class="deal-value">{{dealCtrl.deal.value | currency:'R$ '}}</span> - {{dealCtrl.deal.person.name}} - {{dealCtrl.deal.organization.name}}</p>
+
+        <form>
+            <div class="form-group">
+                <label><strong><i class="fa fa-note"></i> Adicione uma nota</strong></label>
+                <textarea class="form-control" rows="5" ng-model="dealCtrl.note.content"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary pull-right" ng-click="dealCtrl.addNote(dealCtrl.note)">Save</button>
+            </div>
+        </form>
+
+        <h3>Notes</h3>
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th>Note</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="note in dealCtrl.notes">
+                    <td>{{note.content}}</td>
+                    <td class="text-center">
+                        <button class="btn btn-default btn-xs" ng-click="dealCtrl.removeNote(note)">
+                            <i class="fa fa-trash"></i> 
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+</div>

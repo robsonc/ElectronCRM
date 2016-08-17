@@ -9,16 +9,16 @@ var todoSchema = new Schema({
     isDone: { type: Boolean, default: false },
     belongsTo: { type: Schema.Types.ObjectId, ref: 'DoList' }
 }, {
-        timestamps: true
-    });
+    timestamps: true
+});
 
 todoSchema.methods.do = function () {
     this.isDone = true;
-}
+};
 
 todoSchema.methods.undo = function () {
     this.isDone = false;
-}
+};
 
 todoSchema.pre('save', function (next) {
     var self = this;

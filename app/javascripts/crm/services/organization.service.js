@@ -10,15 +10,15 @@
         
         return {
             save: save,
-            findByName: findByName
+            findByName: findByName,
+            findAll: findAll
         };
 
         function save(organization){
             var deferred = $q.defer();
 
             var newOrganization = Organization({
-                title: deal.title,
-                value: deal.value
+                name: organization.name
             });
 
             newOrganization.save(function(err, organization){
@@ -32,7 +32,19 @@
         function findByName(name){
             var deferred = $q.defer();
 
-            Organization.find({name: name}).exec(function(err, organizations){
+            var text = new RegExp(".*" + name + ".*", "i");
+            Organization.find({name: text}).exec(function(err, organizations){
+                if (err) deferred.reject(err);
+                deferred.resolve(organizations);
+            });
+
+            return deferred.promise;
+        }
+
+        function findAll(){
+            var deferred = $q.defer();
+
+            Organization.find().exec(function(err, organizations){
                 if (err) deferred.reject(err);
                 deferred.resolve(organizations);
             });

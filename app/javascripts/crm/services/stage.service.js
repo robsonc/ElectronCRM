@@ -8,7 +8,8 @@
     StageService.$inject = ['$q', 'Stage', 'Deal', 'async'];
     function StageService($q, Stage, Deal, async) {
         return {
-            findAll: findAll
+            findAll: findAll,
+            addDeal: addDeal
         };
 
         function findAll(){
@@ -18,7 +19,7 @@
                 if (err) deferred.reject(err);
 
                 async.each(stages, function(stage, done){
-                    Deal.find({stage: stage}).exec(function(err, deals){
+                    Deal.find({stage: stage}).populate('person organization').exec(function(err, deals){
                         if (err) return done(err);
                         stage.deals = deals;
                         return done();
@@ -26,6 +27,21 @@
                 }, function(err){
                     if (err) deferred.reject(err);
                     deferred.resolve(stages);
+                });
+            });
+
+            return deferred.promise;
+        }
+
+        function addDeal(stageId, deal){
+            var deferred = $q.defer();
+
+            Stage.findById(stageId).exec(function(err, stage){
+                if (err) deferred.reject(err);
+                deal.stage = stage;
+                deal.save(function(err){
+                    if (err) deferred.reject(err);
+                    deferred.resolve();
                 });
             });
 

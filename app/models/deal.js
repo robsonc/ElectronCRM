@@ -7,6 +7,8 @@ var dealSchema = new Schema({
     person: {type: Schema.Types.ObjectId, ref: 'Person'},
     organization: {type: Schema.Types.ObjectId, ref: 'Organization'},
     stage: {type: Schema.Types.ObjectId, ref: 'Stage'}
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Deal', dealSchema);

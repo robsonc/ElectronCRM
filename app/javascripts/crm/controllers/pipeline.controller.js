@@ -13,7 +13,16 @@
         vm.cardsSortableOptions = {
             connectWith: '.pipeline-column',
             placeholder: 'placeholder panel',
-            forcePlaceholderSize: true
+            forcePlaceholderSize: true,
+            stop: function(evt, ui){
+                if (ui.item.sortable.droptarget) {
+                    var stageId = ui.item.sortable.droptarget.attr('id').split('-')[1];
+                    var deal = ui.item.sortable.model;
+                    StageService.addDeal(stageId, deal).then(function(){
+                        console.log('change deal stage');
+                    });
+                }
+            }
         };
 
         vm.newDeal = newDeal;

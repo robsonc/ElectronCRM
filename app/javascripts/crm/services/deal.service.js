@@ -9,7 +9,9 @@
     function DealService($q, Deal) {
         
         return {
-            save: save
+            save: save,
+            findById: findById,
+            remove: remove
         };
 
         function save(deal){
@@ -29,6 +31,31 @@
             });
 
             return deferred.promise;
+        }
+
+        function findById(dealId){
+            var deferred = $q.defer();
+
+            Deal.findById(dealId).populate('person organization').exec(function(err, deal){
+                if (err) deferred.reject(err);
+                deferred.resolve(deal);
+            });
+
+            return deferred.promise;
+        }
+
+        function remove(deal){
+            var deferred = $q.defer();
+
+            Deal.findById(deal._id).exec(function(err, deal){
+                if (err) deferred.reject(err);
+                deal.remove(function(err){
+                    if (err) deferred.reject(err);
+                    deferred.resolve();
+                });
+            });
+
+            return deferred.promise;   
         }
     }
 })();

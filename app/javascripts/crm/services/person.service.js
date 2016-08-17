@@ -10,7 +10,8 @@
         
         return {
             save: save,
-            findByName: findByName
+            findByName: findByName,
+            findAll: findAll
         };
 
         function save(person){
@@ -31,7 +32,19 @@
         function findByName(name){
             var deferred = $q.defer();
 
-            Person.find({name: name}).exec(function(err, persons){
+            var text = new RegExp(".*" + name + ".*", "i");
+            Person.find({name: text}).exec(function(err, persons){
+                if (err) deferred.reject(err);
+                deferred.resolve(persons);
+            });
+
+            return deferred.promise;
+        }
+
+        function findAll(){
+            var deferred = $q.defer();
+
+            Person.find().exec(function(err, persons){
                 if (err) deferred.reject(err);
                 deferred.resolve(persons);
             });

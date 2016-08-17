@@ -1,0 +1,15 @@
+<back-button></back-button>
+<button class="btn btn-primary" ng-click="personsCtrl.addPerson()">Add Person</button>
+<h1>Persons</h1>
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="person in personsCtrl.persons">
+            <td>{{person.name}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -5,12 +5,15 @@
 </div>
 <hr>
 <div class="row" ui-sortable ng-model="pipelineCtrl.stages">
-    <div class="col-md-15 pipeline-column" ng-repeat="stage in pipelineCtrl.stages" 
+    <div id="{{'stage-' + stage._id}}" class="col-md-15 pipeline-column" ng-repeat="stage in pipelineCtrl.stages" 
         ui-sortable="pipelineCtrl.cardsSortableOptions" ng-model="stage.deals">
         
         <div class="panel-heading"><strong>{{stage.name}}</strong></div>
         <div class="card panel panel-default" ng-repeat="deal in stage.deals">
-            <div class="panel-body">{{deal.title}}</div>
+            <div class="panel-body">
+                <p><strong><a ui-sref="app.deal({dealId: deal._id})">{{deal.title}}</a></strong></p>
+                <p>{{deal.value | currency:'R$ '}} - {{deal.organization.name}}</p>
+            </div>
         </div>
     </div>
 </div>
