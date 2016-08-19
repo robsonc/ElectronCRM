@@ -1,0 +1,11 @@
+<ul class="list-group" ng-if="notes.length">
+    <li class="list-group-item" ng-repeat="note in notes">
+        <i class="fa fa-suitcase"></i>&nbsp;&nbsp; {{::note.content}}
+    </li>
+</ul>
+<div ng-if="notes.length === 0">
+    <p><i class="fa fa-thumbs-o-down"></i>&nbsp;&nbsp; Você não possui atividades agendadas para este negócio.</p>
+</div>
+<div>
+    <p class="text-center"><strong><a ui-sref="app.deal({dealId: deal._id})">Schedule a activity</a></strong></p>
+</div>

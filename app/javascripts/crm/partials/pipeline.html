@@ -14,39 +14,24 @@
         </div>
         <div class="card panel panel-default" ng-repeat="deal in stage.deals">
             <div class="panel-body">
-                <p><strong><a ui-sref="app.deal({dealId: deal._id})">{{::deal.title}}</a></strong></p>
-                <p>{{::deal.value | currency:'R$ '}} - {{::deal.organization.name}}</p>
+                <div class="row">
+                    <div class="col-md-10">
+                        <p><strong><a ui-sref="app.deal({dealId: deal._id})">{{::deal.title}}</a></strong></p>
+                        <p>{{::deal.value | currency:'R$ '}} - {{::deal.organization.name}}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <span><i class="fa fa-chevron-circle-right" 
+                            uib-popover popover-title="Tasks" 
+                            popover-placement="auto"
+                            popover-trigger="'click outsideClick'"
+                            uib-popover-template="'deal-tasks.html'"></i></span>
+                    </div>
+                </div>
             </div>
+
+            <script type="text/ng-template" id="deal-tasks.html">
+                <deal-notes deal="deal"></deal-notes>
+            </script>
         </div>
     </div>
 </div>
-
-<!--<div class="row">
-    <div class="col-md-12">
-        <div class="table-responsive">
-            <table class="table table-condensed table-hover">
-                <thead>
-                    <tr>
-                        <th style="heigth: 50px; vertical-align: top; min-width: 200px;" ng-repeat="stage in pipelineCtrl.stages">
-                            <h4>{{::stage.name}}</h4>
-                            <p ng-if="stage.deals.length">{{stage.deals | sumByKey:'value' | currency:'R$ '}} - {{stage.deals.length}}</p>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td id="{{'stage-' + stage._id}}" class="pipeline-column" ng-repeat="stage in pipelineCtrl.stages" ui-sortable="pipelineCtrl.cardsSortableOptions"
-                            ng-model="stage.deals" style="border: 1px solid #ccc; position: relative;">
-                            <div class="card panel panel-default" ng-repeat="deal in stage.deals">
-                                <div class="panel-body">
-                                    <p><strong><a ui-sref="app.deal({dealId: deal._id})">{{::deal.title}}</a></strong></p>
-                                    <p>{{::deal.value | currency:'R$ '}} - {{::deal.organization.name}}</p>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>-->
