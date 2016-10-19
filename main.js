@@ -1,3 +1,7 @@
+'use strict';
+
+//jshint node:true
+
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
@@ -5,7 +9,8 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const ipcMain = electron.ipcMain;
 
-const googleApi = require('./app/libs/google-api.js');
+const googleApi = require('./app/libs/google-api');
+const facebookAuth = require('./app/libs/facebook-auth');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -43,6 +48,10 @@ ipcMain.on('google-grant-permission', function (evt, arg) {
 
 ipcMain.on('google-authorize', function (evt, args) {
     googleApi.authorize(args.code);
+});
+
+ipcMain.on('facebook-auth-dialog', function(evt, args){
+    facebookAuth.showPermissionDialog();
 });
 
 // This method will be called when Electron has finished

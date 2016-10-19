@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('TodoList').controller('MainController', MainController);
-    MainController.$inject = ['$mongoose', 'TodoService', 'ipcRenderer', 'GoogleCalendarService', '$rootScope'];
-    function MainController($mongoose, TodoService, ipcRenderer, GoogleCalendarService, $rootScope) {
+    MainController.$inject = ['$mongoose', 'TodoService', 'ipcRenderer', 'GoogleCalendarService', '$rootScope', 'FacebookGraphService'];
+    function MainController($mongoose, TodoService, ipcRenderer, GoogleCalendarService, $rootScope, FacebookGraphService) {
         var vm = this;
 
         vm.event = {};
@@ -11,6 +11,7 @@
         vm.authorize = authorize;
         vm.save = save;
         vm.closeAlert = closeAlert;
+        vm.showFacebookAuthDialog = showFacebookAuthDialog;
 
         activate();
 
@@ -51,5 +52,17 @@
         function closeAlert(){
             vm.error = null;
         }
+
+        function showFacebookAuthDialog(){
+            ipcRenderer.send('facebook-auth-dialog');
+        }
+    }
+
+    angular.module('TodoList').filter('html', TrustedHtml);
+    TrustedHtml.$inject = ['$sce'];
+    function TrustedHtml($sce){
+        return function(text){
+            return $sce.trustAsHtml(text);
+        };
     }
 })();

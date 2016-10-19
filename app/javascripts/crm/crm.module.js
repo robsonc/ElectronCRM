@@ -6,6 +6,7 @@
     var Person = require('./../../models/person');
     var Stage = require('./../../models/stage');
     var Note = require('./../../models/note');
+    var Activity = require('./../../models/activity');
 
     angular.module('bs.crm', ['ui.router']);
     angular.module('bs.crm')
@@ -13,5 +14,6 @@
         .constant('Organization', Organization)
         .constant('Person', Person)
         .constant('Stage', Stage)
+        .constant('Activity', Activity)
         .constant('Note', Note);
 })();

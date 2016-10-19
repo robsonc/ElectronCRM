@@ -7,13 +7,12 @@
     padding-right: 15px;
     padding-left: 15px;
 }
-
 .col-xs-15 {
     width: 20%;
     float: left;
 }
 @media (min-width: 768px) {
-.col-sm-15 {
+    .col-sm-15 {
         width: 20%;
         float: left;
     }
@@ -34,6 +33,6 @@
 .pipeline-column {border: 1px solid #ccc; min-height: 500px; background: #eee}
 .placeholder {border: 1px dashed #000;}
 .deal-value {font-size: 18px; font-weight: bold}
-.popover {
-    width: 300px;
-}
+.popover {width: 300px;}
+.fa-chevron-circle-right {color: #ccc; font-size: 16px;}
+

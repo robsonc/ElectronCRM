@@ -1,4 +1,4 @@
-<div class="hidden">
+<!--<div class="hidden">
     <button class="btn btn-default" ng-click="main.permission()">
         <i class="fa fa-google" aria-hidden="true"></i> Google Permission
     </button>
@@ -12,19 +12,12 @@
     </div>
 
     <hr>
-</div>
+</div>-->
+
+<button class="btn btn-success" ng-click="main.showFacebookAuthDialog()">Facebook Auth</button>
 <div uib-alert close="main.closeAlert()" dismiss-on-timeout="6000" class="alert alert-danger" ng-if="main.error">{{main.error}}</div>
 <h3><i class="fa fa-calendar" aria-hidden="true"></i> Google Calendar</h3>
 <h4>Next Events</h4>
-<!--<form>
-    <div class="form-group">
-        <label>Summary</label>
-        <input class="form-control" type="text" ng-model="main.event.summary">
-    </div>
-    <div class="form-group">
-        <button class="btn btn-primary" ng-click="main.save(main.event)">Save</button>
-    </div>
-</form>-->
 <ul>
     <li ng-repeat="event in main.events">{{event.summary}} em {{event.start.dateTime || event.start.date | date:'dd/MM/yyyy'}} às {{event.start.dateTime || event.start.date
         | date:'HH:mm'}}</li>

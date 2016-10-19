@@ -4,8 +4,10 @@
     var mongoose = require('mongoose');
     var async = require('async');
     var _ = require('lodash');
+    var FB = require('fb');
 
     var GoogleCalendarService = require('./../libs/google-calendar-api');
+    var FacebookGraphService = require('./../libs/facebook-graph-api');
     var ipcRenderer = require('electron').ipcRenderer;
 
     mongoose.Promise = global.Promise;
@@ -21,7 +23,9 @@
         'ui.sortable', 
         'ui.bootstrap', 
         'ui.bootstrap.tpls', 
-        'ngAnimate'
+        'ngAnimate',
+        'ngSanitize',
+        'angularTrix'
     ]);
 
     angular.module('TodoList')
@@ -29,5 +33,6 @@
         .constant('async', async)
         .constant('_', _)
         .constant('GoogleCalendarService', GoogleCalendarService)
-        .constant('ipcRenderer', ipcRenderer);
+        .constant('ipcRenderer', ipcRenderer)
+        .constant('FacebookGraphService', FacebookGraphService);
 })();

@@ -5,11 +5,13 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="organization in organizationsCtrl.organizations">
             <td>{{organization.name}}</td>
+            <td class="text-center"><button class="btn btn-default btn-sm"><i class="fa fa-trash"></i></button></td>
         </tr>
     </tbody>
 </table>

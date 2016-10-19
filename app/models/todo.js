@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var todoSchema = new Schema({
     name: String,
-    startDate: {type: Date, default: Date.now()},
-    startTime: {type: Date, default: Date.now()},
+    startDate: Date,
+    startTime: Date,
     priority: { type: Number },
     isDone: { type: Boolean, default: false },
     belongsTo: { type: Schema.Types.ObjectId, ref: 'DoList' }

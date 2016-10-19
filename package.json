@@ -16,10 +16,12 @@
   },
   "dependencies": {
     "async": "^2.0.1",
+    "fb": "^1.1.1",
     "google-auth-library": "^0.9.8",
     "googleapis": "^12.1.0",
     "moment": "^2.14.1",
     "mongoose": "^4.5.8",
+    "nodemailer": "^2.5.0",
     "q": "^1.4.1"
   }
 }
