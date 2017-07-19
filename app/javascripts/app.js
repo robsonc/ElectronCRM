@@ -1,6 +1,7 @@
 (function () {
     'use strict';
 
+    //var bluebird = require('bluebird');
     var mongoose = require('mongoose');
     var async = require('async');
     var _ = require('lodash');
@@ -10,22 +11,29 @@
     var FacebookGraphService = require('./../libs/facebook-graph-api');
     var ipcRenderer = require('electron').ipcRenderer;
 
+    //mongoose.Promise = bluebird;
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost/todolistdb');
-/*    mongoose.options = {
+
+    mongoose.connect('mongodb://localhost/todolistdb', {
+        useMongoClient: true
+    });
+
+    mongoose.options = {
         debug: true
-    };*/
+    };
 
     angular.module('TodoList', [
         'bs.dolists',
         'bs.crm',
-        'ui.router', 
-        'ui.sortable', 
-        'ui.bootstrap', 
-        'ui.bootstrap.tpls', 
+        'bs.sales',
+        'ui.router',
+        'ui.sortable',
+        'ui.bootstrap',
+        'ui.bootstrap.tpls',
         'ngAnimate',
         'ngSanitize',
-        'angularTrix'
+        'angularTrix',
+        'ngContentEditable'
     ]);
 
     angular.module('TodoList')

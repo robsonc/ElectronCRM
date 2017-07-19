@@ -21,6 +21,8 @@
                     
                     StageService.addDeal(stageId, deal).then(function(){
                         console.log('change deal stage');
+                    }, function(err){
+                        console.log('Erro ao atualizar situação do negócio: ' + err);
                     });
                 }
             }

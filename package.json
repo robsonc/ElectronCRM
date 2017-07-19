@@ -5,23 +5,32 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager . Ragnarok --arch=x64 --platform=win32 --prune --asar=true"
+    "package": "electron-packager . Ragnarok --arch=x64 --platform=win32 --prune --asar=true",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "ragnarok.app"
   },
   "author": "Robson Coutinho",
   "license": "CC0-1.0",
   "devDependencies": {
+    "electron": "^1.6.11",
+    "electron-builder": "^19.16.0",
     "electron-packager": "^7.5.1",
     "electron-prebuilt": "^1.2.0",
     "jshint": "^2.9.2"
   },
   "dependencies": {
-    "async": "^2.0.1",
+    "async": "^2.5.0",
+    "bluebird": "^3.5.0",
     "fb": "^1.1.1",
-    "google-auth-library": "^0.9.8",
-    "googleapis": "^12.1.0",
-    "moment": "^2.14.1",
-    "mongoose": "^4.5.8",
-    "nodemailer": "^2.5.0",
-    "q": "^1.4.1"
+    "google-auth-library": "^0.9.10",
+    "googleapis": "^12.4.0",
+    "moment": "^2.18.1",
+    "mongoose": "^4.11.3",
+    "nodemailer": "^2.7.2",
+    "q": "^1.5.0",
+    "xel": "0.0.48"
   }
 }

@@ -28,6 +28,10 @@
             url: 'organizations',
             controller: 'OrganizationsController as organizationsCtrl',
             templateUrl: './javascripts/crm/partials/organizations.html'
+        }).state('app.activities', {
+            url: 'activities',
+            controller: 'ActivitiesController as activitiesCtrl',
+            templateUrl: './javascripts/crm/partials/activities.html'
         });
     }
 })();

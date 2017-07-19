@@ -1,8 +1,7 @@
 <div class="row">
 	<div class="col-md-12">
-		<back-button></back-button>
 		<button class="btn btn-danger pull-right" ng-click="dealCtrl.remove(dealCtrl.deal)">Delete</button>
-		<h1>{{dealCtrl.deal.title}}</h1>
+		<h1 class="editable" data-ng-model="dealCtrl.deal.title" ng-change='dealCtrl.changeTitle(dealCtrl.deal.title)'></h1>
 		<p><span class="deal-value">{{dealCtrl.deal.value | currency:'R$ '}}</span> - {{dealCtrl.deal.person.name}} - {{dealCtrl.deal.organization.name}}</p>
 
 		<uib-tabset>
@@ -63,9 +62,15 @@
 		</uib-tabset>
 
 		<h3>Activities</h3>
-		<ul>
-			<li ng-repeat="activity in dealCtrl.activities">
-				{{activity.content}}
+		<ul class="todo-list">
+			<li class="todo-list-item" ng-class="{'done': activity.isDone}" ng-repeat="activity in dealCtrl.activities track by activity._id">
+				<button class="btn btn-default btn-xs" ng-click="dealCtrl.doneActivity(activity, $index)">
+            		<i class="fa" ng-class="{'fa-check': !activity.isDone, 'fa-undo': activity.isDone}"></i>
+				</button>&nbsp;&nbsp;&nbsp;
+				{{::activity.content}} <span>em {{::activity.startDate | date:'dd/MM/yyyy'}} às {{::activity.startTime | date:'HH:mm'}}</span>
+				<button class="btn btn-default btn-xs pull-right" ng-click="dealCtrl.removeActivity(activity, $index)">
+					<i class="fa fa-trash"></i>
+				</button>
 			</li>
 		</ul>
 

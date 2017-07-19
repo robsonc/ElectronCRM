@@ -28,6 +28,7 @@
     "angular-ui-select": "^0.19.4",
     "angular-sanitize": "^1.5.8",
     "trix": "^0.9.9",
-    "angular-trix": "^1.0.2"
+    "angular-trix": "^1.0.2",
+    "ng-contenteditable": "ngcontenteditable#^0.9.12"
   }
 }

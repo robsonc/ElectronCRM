@@ -1,5 +1,36 @@
+    <!-- <x-menubar>
+        <back-button></back-button>
+        <x-menuitem ui-sref="app.dashboard">
+            <x-label>Dashboard</x-label>
+        </x-menuitem>
+        <x-menuitem ui-sref="app.doLists">
+            <x-label>Do Lists</x-label>
+        </x-menuitem>
+        <x-menuitem ui-sref="app.pipeline">
+            <x-label>Pipeline</x-label>
+        </x-menuitem>
+        <x-menuitem ui-sref="app.activities">
+            <x-label>Activities</x-label>
+        </x-menuitem>
+        <x-menuitem>
+            <x-label>Contacts</x-label>
+            <x-menu>
+                <x-menuitem ui-sref="app.persons">
+                    <x-label>Persons</x-label>
+                </x-menuitem>
+                <x-menuitem ui-sref="app.organizations">
+                    <x-label>Organizations</x-label>
+                </x-menuitem>
+            </x-menu>
+        </x-menuitem>
+        <x-menuitem ui-sref="app.sales">
+            <x-label>Sales</x-label>
+        </x-menuitem>
+    </x-menubar>
+     -->
 <div class="container-fluid">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <a class="navbar-brand" href="#">{{nav.name}}</a>
         <ul class="nav navbar-nav">
             <li ui-sref-active="active">
@@ -11,6 +42,9 @@
             <li ui-sref-active="active">
                 <a ui-sref="app.pipeline">Pipeline</a>
             </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.activities">Activities</a>
+            </li>
             <li uib-dropdown uib-dropdown-toggle><a ui-sref-active="active">Contacts</a>
                 <ul uib-dropdown-menu>
                     <li ui-sref-active="active">
@@ -21,6 +55,9 @@
                     </li>
                 </ul>
             </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.sales">Sales</a>
+            </li>
         </ul>
-    </nav>
+    </nav> 
 </div>

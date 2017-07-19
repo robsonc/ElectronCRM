@@ -58,8 +58,8 @@
 
             Stage.findById(stageId).exec(function(err, stage){
                 if (err) deferred.reject(err);
-                deal.stage = stage;
-                deal.save(function(err){
+                deal.stage = stage._id;
+                deal.save(function(err, deal){
                     if (err) deferred.reject(err);
                     deferred.resolve();
                 });

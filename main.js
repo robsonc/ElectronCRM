@@ -1,12 +1,13 @@
 'use strict';
 
 //jshint node:true
+//jshint esversion: 6
 
 const electron = require('electron')
 // Module to control application life.
-const app = electron.app
+const app = electron.app;
 // Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
+const BrowserWindow = electron.BrowserWindow;
 const ipcMain = electron.ipcMain;
 
 const googleApi = require('./app/libs/google-api');
@@ -14,7 +15,7 @@ const facebookAuth = require('./app/libs/facebook-auth');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow;
 
 function createWindow() {
 
@@ -39,7 +40,7 @@ function createWindow() {
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null
-    })
+    });
 }
 
 ipcMain.on('google-grant-permission', function (evt, arg) {
@@ -50,7 +51,7 @@ ipcMain.on('google-authorize', function (evt, args) {
     googleApi.authorize(args.code);
 });
 
-ipcMain.on('facebook-auth-dialog', function(evt, args){
+ipcMain.on('facebook-auth-dialog', function (evt, args) {
     facebookAuth.showPermissionDialog();
 });
 
@@ -75,6 +76,10 @@ app.on('activate', function () {
         createWindow()
     }
 })
+
+app.on('uncaugthException', function (e) {
+    console.log(e);
+});
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

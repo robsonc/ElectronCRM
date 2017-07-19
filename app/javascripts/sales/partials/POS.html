@@ -1,0 +1,46 @@
+<h2>POS - Sale {{ POSCtrl.currentSale.id }}</h2>
+<h3>Product: {{ POSCtrl.selectedProduct.description }}</h3>
+<div class="form-group">
+    <label><strong>Search for a product</strong></label>
+    <p class="input-group">
+        <input uib-typeahead="product as product.description for product in POSCtrl.getProduct($viewValue)" type="text" class="form-control"
+            ng-model="POSCtrl.selectedProduct" typeahead-loading="loadingProducts" typeahead-no-results="noResultsProduct">
+        <i ng-show="loadingProducts" class="glyphicon glyphicon-refresh"></i>
+        <div ng-show="noResultsProduct">
+            <i class="glyphicon glyphicon-remove"></i> No Results Found
+        </div>
+        <span class="input-group-btn">
+            <button class="btn btn-primary" ng-click="POSCtrl.addItem()">Add
+                <i class="fa fa-calendar"></i>
+            </button>
+        </span>
+    </p>
+</div>
+<table class="table table-bordered table-hover table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in POSCtrl.currentSale.lineItems">
+            <td>{{ item.description }}</td>
+            <td>{{ item.unitPrice | currency:'R$ ' }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.subtotal | currency:'R$ ' }}</td>
+            <td>
+                <button ng-click="POSCtrl.removeItem(item._id)" class="btn btn-default">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Subtotal: {{ POSCtrl.currentSale.subtotal | currency:'R$ ' }}</h3>
+<h3>Discount: {{ POSCtrl.currentSale.discount | currency:'R$ ' }}</h3>
+<h3>Total: {{ POSCtrl.currentSale.total | currency:'R$ ' }}</h3>

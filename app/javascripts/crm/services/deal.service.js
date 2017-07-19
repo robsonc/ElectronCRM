@@ -11,7 +11,8 @@
         return {
             save: save,
             findById: findById,
-            remove: remove
+            remove: remove,
+            changeTitle: changeTitle
         };
 
         function save(deal){
@@ -56,6 +57,21 @@
             });
 
             return deferred.promise;   
+        }
+
+        function changeTitle(id, title){
+            var deferred = $q.defer();
+
+            Deal.findById(id, function(err, deal){
+                if (err) deferred.reject(err);
+                deal.title = title;
+                deal.save(function(err, deal){
+                    if (err) deferred.reject(err);
+                    deferred.resolve(deal);
+                });
+            });
+
+            return deferred.promise;
         }
     }
 })();

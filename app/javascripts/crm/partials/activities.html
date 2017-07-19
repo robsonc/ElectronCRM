@@ -1,0 +1,7 @@
+<h2>Activities</h2>
+<hr>
+<ul class="todo-list">
+    <li class="todo-list-item" ng-repeat="activity in activitiesCtrl.activities track by activity._id">
+        {{::activity.content}} em {{::activity.startDate | date:"dd/MM/yyyy"}} às {{::activity.startTime | date:"HH:mm"}} - <strong>{{::activity.deal.organization.name}}</strong>
+    </li>
+</ul>

@@ -9,8 +9,12 @@
     <link rel="stylesheet" type="text/css" href="./../bower_components/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="./../bower_components/angular-ui-select/dist/select.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css">
+    <link rel="stylesheet" type="text/css" href="./../bower_components/ng-contenteditable/ng-contenteditable.css">
     <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="./javascripts/crm/stylesheets/crm.css">
+    <!-- xel -->
+    <!-- <link rel="import" href="./../node_modules/xel/xel.min.html">
+    <link rel="stylesheet" href="./../node_modules/xel/stylesheets/material.theme.css"> -->
 </head>
 
 <body>
@@ -34,6 +38,7 @@
     require('./../bower_components/angular-ui-select/dist/select.js');
     require("./../bower_components/trix/dist/trix.js");
     require("./../bower_components/angular-trix/dist/angular-trix.js");
+    require("./../bower_components/ng-contenteditable/ng-contenteditable.js");
     
     //Application
     require('./javascripts/app.js');
@@ -62,6 +67,7 @@
     require('./javascripts/crm/controllers/organizations.controller.js');
     require('./javascripts/crm/controllers/new-person.controller.js');
     require('./javascripts/crm/controllers/new-organization.controller.js');
+    require('./javascripts/crm/controllers/activities.controller.js');
     require('./javascripts/crm/services/deal.service.js');
     require('./javascripts/crm/services/organization.service.js');
     require('./javascripts/crm/services/person.service.js');
@@ -70,6 +76,13 @@
     require('./javascripts/crm/services/activity.service.js');
     require('./javascripts/crm/filters/sum-by-key.filter.js');
     require('./javascripts/crm/directives/deal-notes.directive.js');
+    //Sales
+    require('./javascripts/sales/sales.module.js');
+    require('./javascripts/sales/config/sales.config.js');
+    require('./javascripts/sales/config/sales.route.js');
+    require('./javascripts/sales/services/sale.service.js');
+    require('./javascripts/sales/controllers/sales.controller.js');
+    require('./javascripts/sales/controllers/pos.controller.js');
     //Shared
     require('./javascripts/confirm-dialog.controller.js');
     require('./javascripts/back-button.directive.js');

@@ -5,14 +5,17 @@
         .module('bs.crm')
         .controller('NewDealController', NewDealController);
 
-    NewDealController.$inject = ['DealService', 'OrganizationService', 'PersonService', 'StageService', '$uibModalInstance'];
-    function NewDealController(DealService, OrganizationService, PersonService, StageService, $uibModalInstance) {
+    NewDealController.$inject = ['DealService', 'OrganizationService', 'PersonService', 
+        'StageService', '$uibModalInstance'];
+    function NewDealController(DealService, OrganizationService, PersonService, 
+        StageService, $uibModalInstance) {
+        
         var vm = this;
         
         vm.deal = {};
 
         vm.save = save;
-        vm.getPerson = getPerson;
+        vm.getPerson = getPerson;   
         vm.getOrganization = getOrganization;
 
         activate();
