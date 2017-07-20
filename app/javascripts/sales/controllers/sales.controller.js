@@ -5,12 +5,14 @@
         .module('bs.sales')
         .controller('SalesController', SalesController);
 
-    SalesController.$inject = ['SaleService', 'Sale'];
-    function SalesController(SaleService, Sale) {
+    SalesController.$inject = ['SaleService', 'Sale', '$scope'];
+    function SalesController(SaleService, Sale, $scope) {
         var vm = this;
 
         vm.sales = [];
-        vm.newSale = newSale;
+
+        vm.clearSales = clearSales;
+        vm.removeSale = removeSale;
 
         activate();
 
@@ -22,21 +24,21 @@
             });
         }
 
-        function newSale() {
-            SaleService.save({
+        function clearSales() {
+            SaleService.removeAll().then(function(){
+                console.log('All sales removed');
+                vm.sales = [];
+            }, function(err){
+                console.log(err);
+            });
+        }
 
-            }).then(function (sale) {
-                SaleService.addItem(sale._id, {
-                    description: 'COCA COLA',
-                    unitPrice: 20,
-                    quantity: 3
-                }).then(function(sale){
-                    console.log(sale);
-                    vm.sales.push(sale);
-                }, function(err){
-                    console.log(err);
-                });
-            }, function (err) {
+        function removeSale(index, saleId) {
+            console.log(index);
+            console.log(saleId);
+            SaleService.remove(saleId).then(function(){
+                vm.sales.splice(index, 1);
+            }, function(err){
                 console.log(err);
             });
         }

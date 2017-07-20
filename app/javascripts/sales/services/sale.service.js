@@ -5,15 +5,17 @@
         .module('bs.sales')
         .factory('SaleService', SaleService);
 
-    SaleService.$inject = ['$q', 'Sale', '$rootScope'];
+    SaleService.$inject = ['$q', 'Sale', '$rootScope', '$mongoose'];
 
-    function SaleService($q, Sale, $rootScope) {
+    function SaleService($q, Sale, $rootScope, $mongoose) {
 
         var service = {
             save: save,
             findAll: findAll,
             addItem: addItem,
-            removeItem: removeItem
+            removeItem: removeItem,
+            removeAll: removeAll,
+            remove: remove
         };
 
         return service;
@@ -21,13 +23,11 @@
         function save(newSale) {
             var deferred = $q.defer();
 
-            var sale = new Sale({
-                identifier: 'Test'
-            });
+            var sale = new Sale();
 
             sale.save(function (err, sale) {
                 if (err) return deferred.reject(err);
-                return deferred.resolve(sale);
+                return deferred.resolve(sale.toJSON());
             });
 
             return deferred.promise;
@@ -38,13 +38,15 @@
 
             Sale.find({}).exec(function (err, sales) {
                 if (err) deferred.reject(err);
-                deferred.resolve(sales);
+                deferred.resolve(sales.map(function (s) {
+                    return s.toJSON();
+                }));
             });
 
             return deferred.promise;
         }
 
-        function addItem(saleId, product) {
+        function addItem(saleId, product, quantity) {
             var deferred = $q.defer();
 
             Sale.findById(saleId).exec(function (err, sale) {
@@ -53,12 +55,12 @@
                 sale.lineItems.push({
                     description: product.description,
                     unitPrice: product.sellPrice,
-                    quantity: 1
+                    quantity: quantity
                 });
 
-                sale.save(function (err) {
+                sale.save(function (err, sale) {
                     if (err) deferred.reject(err);
-                    deferred.resolve(sale);
+                    deferred.resolve(sale.toJSON());
                 });
             });
 
@@ -71,12 +73,34 @@
             Sale.findById(saleId).exec(function (err, sale) {
                 if (err) deferred.reject(err);
 
-                sale.lineItems.id(itemId).remove();
-                
-                sale.save(function (err) {
+                sale.lineItems.pull(itemId);
+
+                sale.save(function (err, sale) {
                     if (err) deferred.reject(err);
-                    deferred.resolve(sale);
+                    deferred.resolve(sale.toJSON());
                 });
+            });
+
+            return deferred.promise;
+        }
+
+        function removeAll() {
+            var deferred = $q.defer();
+
+            Sale.remove({}, function (err) {
+                if (err) deferred.reject(err);
+                deferred.resolve();
+            });
+
+            return deferred.promise;
+        }
+
+        function remove(saleId) {
+            var deferred = $q.defer();
+
+            Sale.remove({ _id: saleId}, function (err) {
+                if (err) deferred.reject(err);
+                deferred.resolve();
             });
 
             return deferred.promise;

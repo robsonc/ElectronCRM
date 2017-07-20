@@ -8,8 +8,9 @@
     POSController.$inject = ['SaleService', 'Sale', 'Product', '$scope'];
     function POSController(SaleService, Sale, Product, $scope) {
         var vm = this;
-        
+
         vm.products = [];
+        vm.quantity = 1;
         vm.currentSale = null;
         vm.selectedProduct = null;
 
@@ -22,11 +23,7 @@
         ////////////////
         function activate() {
             SaleService.save().then(function (sale) {
-                setTimeout(function () {
-                    $scope.$apply(function () {
-                        vm.currentSale = sale;
-                    });
-                }, 1000);
+                vm.currentSale = sale;
             });
         }
 
@@ -35,29 +32,23 @@
             var text = new RegExp(".*" + description + ".*", "i");
             return Product.find({ description: text }).exec(function (err, products) {
                 if (err) return console.log(err);
-                return products;
+                return products.map(function (p) {
+                    return p.toJSON();
+                });
             });
         }
 
         function addItem() {
-            SaleService.addItem(vm.currentSale._id, vm.selectedProduct).then(function (sale) {
-                setTimeout(function () {
-                    $scope.$apply(function () {
-                        vm.currentSale = sale;
-                        vm.selectedProduct = null;
-                    });
-                }, 1000);
+            SaleService.addItem(vm.currentSale._id, vm.selectedProduct, vm.quantity).then(function (sale) {
+                vm.currentSale = sale;
+                vm.selectedProduct = null;
             });
         }
 
         function removeItem(itemId) {
             SaleService.removeItem(vm.currentSale._id, itemId).then(function (sale) {
-                setTimeout(function () {
-                    $scope.$apply(function () {
-                        vm.currentSale = sale;
-                    });
-                }, 1000);
-            }, function(err){
+                vm.currentSale = sale;
+            }, function (err) {
                 console.log(err);
             });
         }

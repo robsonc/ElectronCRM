@@ -1,7 +1,8 @@
 (function () {
     'use strict';
 
-    //var bluebird = require('bluebird');
+    var bluebird = require('bluebird');
+    var q = require('q');
     var mongoose = require('mongoose');
     var async = require('async');
     var _ = require('lodash');
@@ -13,6 +14,7 @@
 
     //mongoose.Promise = bluebird;
     mongoose.Promise = global.Promise;
+    //mongoose.Promise = q;
 
     mongoose.connect('mongodb://localhost/todolistdb', {
         useMongoClient: true

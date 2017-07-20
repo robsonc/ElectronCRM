@@ -1,24 +1,41 @@
 <h2>Sales</h2>
-<button class="btn btn-primary" ng-click="salesCtrl.newSale()">Teste Venda</button>
+<button class="btn btn-primary" ng-click="salesCtrl.clearSales()">Limpar vendas</button>
 <a class="btn btn-primary" ui-sref="app.pos">Nova Venda</a>
 <hr>
 <table class="table table-condensed table-hover table-bordered table-striped table-responsive">
-    <thead>
+    <thead style="background-color: #eee">
         <tr>
             <th>Data/Hora</th>
             <th>Cliente</th>
             <th>Subtotal</th>
             <th>Desconto</th>
             <th>Total</th>
+            <th></th>
         </tr>
     </thead>
+    <tfoot style="background-color: #eee">
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="font-weight: bold; font-size: 16px">{{salesCtrl.sales | sumByKey:'subtotal' | currency:'R$ '}}</td>
+            <td style="font-weight: bold; font-size: 16px">{{salesCtrl.sales | sumByKey:'discount' | currency:'R$ '}}</td>
+            <td style="font-weight: bold; font-size: 16px">{{salesCtrl.sales | sumByKey:'total' | currency:'R$ '}}</td>
+            <td></td>
+        </tr>
+    </tfoot>
     <tbody>
         <tr ng-repeat="sale in salesCtrl.sales">
-            <td>{{ sale.date | date}}</td>
+            <td>{{ ::sale.createdAt | date:"dd/MM/yyyy 'às' HH:mm:ss"}}</td>
             <td> - </td>
-            <td>{{ sale.subtotal | currency:'R$ ' }}</td>
-            <td>{{ sale.desconto | currency:'R$ ' }}</td>
-            <td>{{ sale.subtotal | currency:'R$ ' }}</td>
+            <td>{{ ::sale.subtotal | currency:'R$ ' }}</td>
+            <td>{{ ::sale.discount | currency:'R$ ' }}</td>
+            <td>{{ ::sale.total | currency:'R$ ' }}</td>
+            <td>
+                <button class="btn btn-default" ng-click="salesCtrl.removeSale($index, sale.id)">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>
+<h3 ng-if="salesCtrl.sales.length">Number of sales: {{salesCtrl.sales.length}}</h3>

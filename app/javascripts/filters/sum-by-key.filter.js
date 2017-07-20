@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    angular.module('bs.crm').filter('sumByKey', sumByKey);
+    angular.module('TodoList').filter('sumByKey', sumByKey);
 
     function sumByKey(){
         return function(data, key) {
