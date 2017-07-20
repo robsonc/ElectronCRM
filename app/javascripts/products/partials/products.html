@@ -1,0 +1,28 @@
+<h2>Products</h2>
+<a class="btn btn-primary" ui-sref="app.product">Novo Produto</a>
+<hr>
+<table class="table table-condensed table-hover table-bordered table-striped table-responsive">
+    <thead style="background-color: #eee">
+        <tr>
+            <th>Código</th>
+            <th>Descrição</th>
+            <th>Preço de Custo</th>
+            <th>Preço de Venda</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="product in productsCtrl.products">
+            <td>{{ ::product.code }}</td>
+            <td><a ui-sref="app.product({productId: product.id})">{{ ::product.description }}</a></td>
+            <td>{{ ::product.costPrice | currency:'R$ ' }}</td>
+            <td>{{ ::product.sellPrice | currency:'R$ ' }}</td>
+            <td>
+                <button class="btn btn-default" ng-click="productsCtrl.removeProduct($index, product.id)">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h3 ng-if="productsCtrl.products.length">Number of products: {{productsCtrl.products.length}}</h3>

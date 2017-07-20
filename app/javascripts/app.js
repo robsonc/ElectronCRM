@@ -28,6 +28,7 @@
         'bs.dolists',
         'bs.crm',
         'bs.sales',
+        'bs.products',
         'ui.router',
         'ui.sortable',
         'ui.bootstrap',

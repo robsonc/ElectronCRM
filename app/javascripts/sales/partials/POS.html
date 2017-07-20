@@ -7,9 +7,8 @@
 <div class="form-group">
     <label><strong>Search for a product</strong></label>
     <p class="input-group">
-        <input uib-typeahead="product as product.description for product in POSCtrl.getProduct($viewValue)" type="text" 
-            class="form-control" ng-model="POSCtrl.selectedProduct" typeahead-loading="loadingProducts" 
-            typeahead-no-results="noResultsProduct">
+        <input uib-typeahead="product as product.description for product in POSCtrl.getProduct($viewValue)" type="text" class="form-control"
+            ng-model="POSCtrl.selectedProduct" typeahead-loading="loadingProducts" typeahead-no-results="noResultsProduct">
         <span class="input-group-btn">
             <button class="btn btn-primary" ng-click="POSCtrl.addItem()">Add
                 <i class="fa fa-plus"></i>
@@ -23,7 +22,14 @@
 </div>
 
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-7">
+        <div class="btn-group">
+            <button ng-repeat="product in POSCtrl.products" 
+                ng-click="POSCtrl.selectProduct(product)"
+                type="button" class="btn btn-default">{{ product.description }}</button>
+        </div>
+    </div>
+    <div class="col-md-5">
         <table class="table table-bordered table-hover table-striped table-responsive">
             <thead style="background-color: #eee">
                 <tr>
@@ -57,8 +63,7 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div class="col-md-3">
+
         <h3>Subtotal: {{ POSCtrl.currentSale.subtotal | currency:'R$ ' }}</h3>
         <h3>Discount: {{ POSCtrl.currentSale.discount | currency:'R$ ' }}</h3>
         <h3>Total: {{ POSCtrl.currentSale.total | currency:'R$ ' }}</h3>

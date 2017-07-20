@@ -1,0 +1,22 @@
+<form>
+    <legend>Product</legend>
+
+    <div class="form-group">
+        <label for="product-code">Code</label>
+        <input ng-model="productCtrl.product.code" type="text" class="form-control" id="product-code" placeholder="Product Code">
+    </div>
+    <div class="form-group">
+        <label for="product-description">Description</label>
+        <input ng-model="productCtrl.product.description" type="text" class="form-control" id="product-description" placeholder="Description">
+    </div>
+    <div class="form-group">
+        <label for="product-cost-price">Cost Price</label>
+        <input ng-model="productCtrl.product.costPrice" type="text" class="form-control" id="product-cost-price" placeholder="0.00">
+    </div>
+    <div class="form-group">
+        <label for="product-sell-price">Sell Price</label>
+        <input ng-model="productCtrl.product.sellPrice" type="text" class="form-control" id="product-sell-price" placeholder="0.00">
+    </div>
+
+    <button ng-click="productCtrl.save(productCtrl.product)" class="btn btn-primary">Save</button>
+</form>
