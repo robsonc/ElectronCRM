@@ -1,0 +1,53 @@
+<div>
+    <div ng-controller="DashboardController as dashCtrl" class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Vendas por Mês</h3>
+                </div>
+                <div class="panel-body">
+                    <canvas id="bar" class="chart chart-bar" chart-options="dashCtrl.options" 
+                        chart-data="dashCtrl.data" chart-labels="dashCtrl.labels"
+                        chart-series="dashCtrl.series">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Vendas Últimos 30 dias</h3>
+                </div>
+                <div class="panel-body">
+                    <canvas id="bar" class="chart chart-bar" chart-options="dashCtrl.options" 
+                        chart-data="dashCtrl.dataLast30Days" chart-labels="dashCtrl.labelsLast30Days"
+                        chart-series="dashCtrl.seriesLast30Days">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Vendas Últimos 7 dias</h3>
+                </div>
+                <div class="panel-body">
+                    <canvas id="bar" class="chart chart-bar" chart-options="dashCtrl.options" 
+                        chart-data="dashCtrl.dataLastDays" chart-labels="dashCtrl.labelsLastDays"
+                        chart-series="dashCtrl.seriesLastDays">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">D3</h3>
+                </div>
+                <div class="panel-body">
+                    <nvd3 options="dashCtrl.d3Options" data="dashCtrl.d3Data"></nvd3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,7 @@
 
             var sum = 0;
             for (var i = data.length - 1; i >= 0; i--) {
-                sum += parseInt(data[i][key]);
+                sum += parseFloat(data[i][key]);
             }
 
             return sum;

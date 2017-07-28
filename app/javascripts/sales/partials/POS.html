@@ -1,71 +1,96 @@
-<h2>POS - Sale {{ POSCtrl.currentSale.id }}</h2>
-<h3 ng-if="POSCtrl.selectedProduct">{{ POSCtrl.selectedProduct.description }} - {{ POSCtrl.selectedProduct.sellPrice | currency:'R$ ' }}</h3>
-<div class="form-group">
-    <label><strong>Quantity</strong></label>
-    <input type="text" class="form-control" ng-model="POSCtrl.quantity" />
-</div>
-<div class="form-group">
-    <label><strong>Search for a product</strong></label>
-    <p class="input-group">
-        <input uib-typeahead="product as product.description for product in POSCtrl.getProduct($viewValue)" type="text" class="form-control"
-            ng-model="POSCtrl.selectedProduct" typeahead-loading="loadingProducts" typeahead-no-results="noResultsProduct">
-        <span class="input-group-btn">
-            <button class="btn btn-primary" ng-click="POSCtrl.addItem()">Add
-                <i class="fa fa-plus"></i>
-            </button>
-        </span>
-    </p>
-    <i ng-show="loadingProducts" class="glyphicon glyphicon-refresh"></i>
-    <div ng-show="noResultsProduct">
-        <i class="glyphicon glyphicon-remove"></i> No Results Found
-    </div>
-</div>
+<div id="pos">
+    <h2>POS - Sale {{ POSCtrl.currentSale.id }}</h2>
+    <!-- <h3 ng-if="POSCtrl.selectedProduct">{{ POSCtrl.selectedProduct.description }} - {{ POSCtrl.selectedProduct.sellPrice | currency:'R$ ' }}</h3> -->
+    <div class="row">
+        <div class="col-md-7">
+            <!-- <div class="form-group">
+                <label><strong>Quantity</strong></label>
+                <input type="text" class="form-control" ng-model="POSCtrl.quantity" />
+            </div> -->
+            <div class="form-group">
+                <label><strong>Search for a product</strong></label>
+                <input uib-typeahead="product as product.description for product in POSCtrl.getProduct($viewValue)" 
+                    type="text" class="form-control"
+                    ng-model="POSCtrl.selectedProduct" typeahead-loading="loadingProducts"
+                    typeahead-on-select="POSCtrl.addItem($item, $model, $label, $event)"
+                    typeahead-template-url="customTemplate.html" typeahead-no-results="noResultsProduct">
+                <i ng-show="loadingProducts" class="glyphicon glyphicon-refresh"></i>
+                <div ng-show="noResultsProduct">
+                    <i class="glyphicon glyphicon-remove"></i> No Results Found
+                </div>
+            </div>
 
-<div class="row">
-    <div class="col-md-7">
-        <div class="btn-group">
-            <button ng-repeat="product in POSCtrl.products" 
-                ng-click="POSCtrl.selectProduct(product)"
-                type="button" class="btn btn-default">{{ product.description }}</button>
+            <script type="text/ng-template" id="customTemplate.html">
+            <a>
+                <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span> - 
+                <span ng-bind-html="match.model.sellPrice | currency:'R$ '"></span>
+            </a>
+            </script>
+
+            <div class="btn-group" role="group">
+                <button ng-repeat="product in POSCtrl.products" 
+                    ng-click="POSCtrl.selectProduct(product)" 
+                    type="button" class="btn btn-default">{{ product.code + ' - ' + product.description }}</button>
+            </div>
         </div>
-    </div>
-    <div class="col-md-5">
-        <table class="table table-bordered table-hover table-striped table-responsive">
-            <thead style="background-color: #eee">
-                <tr>
-                    <th>Item</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tfoot style="background-color: #eee">
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ POSCtrl.currentSale.lineItems | sumByKey:'subtotal' | currency:'R$ ' }}</td>
-                    <td></td>
-                </tr>
-            </tfoot>
-            <tbody>
-                <tr ng-repeat="item in POSCtrl.currentSale.lineItems">
-                    <td>{{ ::item.description }}</td>
-                    <td>{{ ::item.unitPrice | currency:'R$ ' }}</td>
-                    <td>{{ ::item.quantity }}</td>
-                    <td>{{ ::item.subtotal | currency:'R$ ' }}</td>
-                    <td>
-                        <button ng-click="POSCtrl.removeItem(item._id)" class="btn btn-default">
-                    <i class="fa fa-trash"></i>
-                </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="col-md-5">
+            
+            <div class="btn-group" style="margin-bottom: 15px;">
+                <button type="button" class="btn btn-primary" ng-click="POSCtrl.pay()">Pagamento</button>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped table-responsive">
+                    <thead style="background-color: #eee">
+                        <tr>
+                            <th>Code</th>
+                            <th>Item</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot style="background-color: #eee">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr ng-repeat="item in POSCtrl.currentSale.lineItems">
+                            <td>{{ ::item.code }}</td>
+                            <td>{{ ::item.description }}</td>
+                            <td>{{ ::item.unitPrice | currency:'R$ ' }}</td>
+                            <td>{{ ::item.quantity }}</td>
+                            <td>
+                                <span ng-class="{'line-through': item.discount > 0}">{{ ::item.subtotal | currency:'R$ ' }}</span><br />
+                                <span ng-if="item.discount > 0">{{ ::item.total | currency:'R$ ' }}</span>
+                            </td>
+                            <td>
+                                <button ng-click="POSCtrl.editItem(item)" class="btn btn-default">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button ng-click="POSCtrl.removeItem(item._id)" class="btn btn-default">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <h3>Subtotal: {{ POSCtrl.currentSale.subtotal | currency:'R$ ' }}</h3>
-        <h3>Discount: {{ POSCtrl.currentSale.discount | currency:'R$ ' }}</h3>
-        <h3>Total: {{ POSCtrl.currentSale.total | currency:'R$ ' }}</h3>
+            <h3>Subtotal: <span class='pull-right'>{{ POSCtrl.currentSale.subtotal | currency:'R$ ' }}</span></h3>
+            <h3>Discount: <span class='pull-right'>{{ POSCtrl.currentSale.discount | currency:'R$ ' }}</span></h3>
+            <h3>Total: <span class='pull-right'>{{ POSCtrl.currentSale.total | currency:'R$ ' }}</span></h3>
+        </div>
     </div>
 </div>

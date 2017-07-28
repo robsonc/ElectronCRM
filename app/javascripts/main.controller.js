@@ -2,8 +2,13 @@
     'use strict';
 
     angular.module('TodoList').controller('MainController', MainController);
-    MainController.$inject = ['$mongoose', 'TodoService', 'ipcRenderer', 'GoogleCalendarService', '$rootScope', 'FacebookGraphService'];
-    function MainController($mongoose, TodoService, ipcRenderer, GoogleCalendarService, $rootScope, FacebookGraphService) {
+    
+    MainController.$inject = ['$mongoose', 'TodoService', 'ipcRenderer', 
+        'GoogleCalendarService', '$rootScope', 'FacebookGraphService'];
+    
+    function MainController($mongoose, TodoService, ipcRenderer, 
+        GoogleCalendarService, $rootScope, FacebookGraphService) {
+        
         var vm = this;
 
         vm.event = {};
@@ -20,8 +25,8 @@
                 $rootScope.$apply(function () {
                     vm.events = events;
                 });
-            }, function(error){
-                $rootScope.$apply(function(){
+            }, function (error) {
+                $rootScope.$apply(function () {
                     vm.error = "Houve um erro ao tentar conectar com Google Calendar";
                     console.log(error);
                 });
@@ -49,19 +54,19 @@
             });
         }
 
-        function closeAlert(){
+        function closeAlert() {
             vm.error = null;
         }
 
-        function showFacebookAuthDialog(){
+        function showFacebookAuthDialog() {
             ipcRenderer.send('facebook-auth-dialog');
         }
     }
 
     angular.module('TodoList').filter('html', TrustedHtml);
     TrustedHtml.$inject = ['$sce'];
-    function TrustedHtml($sce){
-        return function(text){
+    function TrustedHtml($sce) {
+        return function (text) {
             return $sce.trustAsHtml(text);
         };
     }

@@ -5,8 +5,8 @@
         .module('bs.products')
         .controller('ProductsController', ProductsController);
 
-    ProductsController.$inject = ['ProductService', 'Product', '$scope'];
-    function ProductsController(ProductService, Product, $scope) {
+    ProductsController.$inject = ['ProductService', 'Product', '$scope', '$uibModal'];
+    function ProductsController(ProductService, Product, $scope, $uibModal) {
         var vm = this;
 
         vm.products = [];
@@ -24,11 +24,20 @@
         }
 
         function removeProduct(index, productId) {
-            ProductService.remove(productId).then(function(){
-                vm.products.splice(index, 1);
-            }, function(err){
-                console.log(err);
+
+            var confirmDialog = $uibModal.open({
+                controller: 'ConfirmDialogController as confirmDialogCtrl',
+                templateUrl: './partials/confirm-dialog.html'
             });
+
+            confirmDialog.result.then(function () {
+                ProductService.remove(productId).then(function () {
+                    vm.products.splice(index, 1);
+                }, function (err) {
+                    console.log(err);
+                });
+            });
+
         }
     }
 })();

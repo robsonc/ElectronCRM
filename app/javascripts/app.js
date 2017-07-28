@@ -4,6 +4,7 @@
     var bluebird = require('bluebird');
     var q = require('q');
     var mongoose = require('mongoose');
+    var moment = require('moment');
     var async = require('async');
     var _ = require('lodash');
     var FB = require('fb');
@@ -36,10 +37,13 @@
         'ngAnimate',
         'ngSanitize',
         'angularTrix',
-        'ngContentEditable'
+        'ngContentEditable',
+        'chart.js',
+        'nvd3'
     ]);
 
     angular.module('TodoList')
+        .constant('$moment', moment)
         .constant('$mongoose', mongoose)
         .constant('async', async)
         .constant('_', _)

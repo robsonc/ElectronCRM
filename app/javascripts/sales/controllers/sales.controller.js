@@ -5,8 +5,8 @@
         .module('bs.sales')
         .controller('SalesController', SalesController);
 
-    SalesController.$inject = ['SaleService', 'Sale', '$scope'];
-    function SalesController(SaleService, Sale, $scope) {
+    SalesController.$inject = ['SaleService', 'Sale', '$scope', '$uibModal'];
+    function SalesController(SaleService, Sale, $scope, $uibModal) {
         var vm = this;
 
         vm.sales = [];
@@ -25,21 +25,33 @@
         }
 
         function clearSales() {
-            SaleService.removeAll().then(function(){
-                console.log('All sales removed');
-                vm.sales = [];
-            }, function(err){
-                console.log(err);
+            var confirmDialog = $uibModal.open({
+                controller: 'ConfirmDialogController as confirmDialogCtrl',
+                templateUrl: './partials/confirm-dialog.html'
+            });
+
+            confirmDialog.result.then(function () {
+                SaleService.removeAll().then(function () {
+                    console.log('All sales removed');
+                    vm.sales = [];
+                }, function (err) {
+                    console.log(err);
+                });
             });
         }
 
         function removeSale(index, saleId) {
-            console.log(index);
-            console.log(saleId);
-            SaleService.remove(saleId).then(function(){
-                vm.sales.splice(index, 1);
-            }, function(err){
-                console.log(err);
+            var confirmDialog = $uibModal.open({
+                controller: 'ConfirmDialogController as confirmDialogCtrl',
+                templateUrl: './partials/confirm-dialog.html'
+            });
+
+            confirmDialog.result.then(function () {
+                SaleService.remove(saleId).then(function () {
+                    vm.sales.splice(index, 1);
+                }, function (err) {
+                    console.log(err);
+                });
             });
         }
     }

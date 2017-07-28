@@ -16,12 +16,12 @@
 </div>-->
 <!-- <x-button ng-click="main.showFacebookAuthDialog()">Facebook Auth</x-button> -->
 <button class="btn btn-success" ng-click="main.showFacebookAuthDialog()">Facebook Auth</button>
-<x-box vertical>
-    <div uib-alert close="main.closeAlert()" dismiss-on-timeout="6000" class="alert alert-danger" ng-if="main.error">{{main.error}}</div>
-    <h3><i class="fa fa-calendar" aria-hidden="true"></i> Google Calendar</h3>
-    <h4>Next Events</h4>
-    <ul>
-        <li ng-repeat="event in main.events">{{event.summary}} em {{event.start.dateTime || event.start.date | date:'dd/MM/yyyy'}} às {{event.start.dateTime ||
-            event.start.date | date:'HH:mm'}}</li>
-    </ul>
-</x-box>
+<div uib-alert close="main.closeAlert()" dismiss-on-timeout="6000" class="alert alert-danger" ng-if="main.error">{{main.error}}</div>
+<h3><i class="fa fa-calendar" aria-hidden="true"></i> Google Calendar</h3>
+<h4>Next Events</h4>
+<ul>
+    <li ng-repeat="event in main.events">{{event.summary}} em {{event.start.dateTime || event.start.date | date:'dd/MM/yyyy'}} às {{event.start.dateTime || event.start.date
+        | date:'HH:mm'}}</li>
+</ul>
+
+<div ng-include="'./partials/dashboard.html'"></div>

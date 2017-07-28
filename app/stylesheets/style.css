@@ -69,3 +69,22 @@
 .done {
     text-decoration: line-through;
 }
+
+.line-through {
+    text-decoration: line-through;
+}
+
+.table-responsive {
+    height: 410px;
+}
+
+#pos .dropdown-menu {
+    position: static;
+    float: none;
+    display: block;
+    min-width: 160px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}

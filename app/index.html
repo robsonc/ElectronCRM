@@ -12,6 +12,8 @@
     <link rel="stylesheet" type="text/css" href="./../bower_components/ng-contenteditable/ng-contenteditable.css">
     <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="./javascripts/crm/stylesheets/crm.css">
+    <link rel="stylesheet" href="./../node_modules/nvd3/build/nv.d3.css">
+
     <!-- xel -->
     <!-- <link rel="import" href="./../node_modules/xel/xel.min.html">
     <link rel="stylesheet" href="./../node_modules/xel/stylesheets/material.theme.css"> -->
@@ -39,12 +41,20 @@
     require("./../bower_components/trix/dist/trix.js");
     require("./../bower_components/angular-trix/dist/angular-trix.js");
     require("./../bower_components/ng-contenteditable/ng-contenteditable.js");
+    require("./../bower_components/chart.js/dist/Chart.min.js");
+    require("./../bower_components/angular-chart.js/dist/angular-chart.min.js");
     
+    //D3
+    require("./../node_modules/d3/d3.js")
+    require("./../node_modules/nvd3/build/nv.d3.js")
+    require("./../node_modules/angular-nvd3/dist/angular-nvd3.js")
+
     //Application
     require('./javascripts/app.js');
     require('./javascripts/app.config.js');
     //Main
     require('./javascripts/main.controller.js');
+    require('./javascripts/dashboard.controller.js');
     //Navigation
     require('./javascripts/nav.controller.js');
     //filters
@@ -84,6 +94,8 @@
     require('./javascripts/sales/services/sale.service.js');
     require('./javascripts/sales/controllers/sales.controller.js');
     require('./javascripts/sales/controllers/pos.controller.js');
+    require('./javascripts/sales/controllers/edit-item.controller.js');
+    require('./javascripts/sales/controllers/payment.controller.js');
     //Products
     require('./javascripts/products/products.module.js');
     require('./javascripts/products/config/products.config.js');
@@ -93,7 +105,7 @@
     require('./javascripts/products/controllers/product.controller.js');
     //Shared
     require('./javascripts/confirm-dialog.controller.js');
-    require('./javascripts/back-button.directive.js');
-  </script>
+    require('./javascripts/directives/back-button.directive.js');
+</script>
 
 </html>

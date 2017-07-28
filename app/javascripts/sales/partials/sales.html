@@ -10,6 +10,7 @@
             <th>Subtotal</th>
             <th>Desconto</th>
             <th>Total</th>
+            <th>Amount Paid</th>
             <th></th>
         </tr>
     </thead>
@@ -30,6 +31,7 @@
             <td>{{ ::sale.subtotal | currency:'R$ ' }}</td>
             <td>{{ ::sale.discount | currency:'R$ ' }}</td>
             <td>{{ ::sale.total | currency:'R$ ' }}</td>
+            <td>{{ ::sale.amountPaid | currency:'R$ ' }}</td>
             <td>
                 <button class="btn btn-default" ng-click="salesCtrl.removeSale($index, sale.id)">
                     <i class="fa fa-trash"></i>
