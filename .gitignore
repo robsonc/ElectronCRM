@@ -51,3 +51,4 @@ config.json
 #package
 Ragnarok-win32-x64
 dist
+app/config/client_id_json
