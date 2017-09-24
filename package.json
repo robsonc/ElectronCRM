@@ -15,7 +15,7 @@
   "author": "Robson Coutinho",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^1.6.11",
+    "electron": "^1.7.6",
     "electron-builder": "^19.16.0",
     "electron-packager": "^7.5.1",
     "electron-prebuilt": "^1.2.0",

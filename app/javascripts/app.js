@@ -38,7 +38,6 @@
         'ngSanitize',
         'angularTrix',
         'ngContentEditable',
-        'chart.js',
         'nvd3'
     ]);
 

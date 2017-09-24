@@ -1,5 +1,3 @@
-'use strict';
-
 var electron = require('electron')
 var BrowserWindow = electron.BrowserWindow
 var googleAuth = require('google-auth-library');
@@ -34,8 +32,8 @@ function showPermissionDialog() {
 
 	browserWindow.on('closed', () => {
 		console.log('browserWindow: closed')
-		browserWindow = null
-	})
+		browserWindow = null;
+	});
 
 	var authUrl = oauth2Client.generateAuthUrl({
         scope: scopes,

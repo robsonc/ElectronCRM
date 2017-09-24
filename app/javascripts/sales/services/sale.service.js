@@ -20,8 +20,11 @@
             addPayment: addPayment,
             removePayment: removePayment,
             getTotalSalesByMonth: getTotalSalesByMonth,
-            getTotalSalesByLast7Days: getTotalSalesByLast7Days,
-            getTotalSalesByLast30Days: getTotalSalesByLast30Days
+            getAverageTicketByMonth: getAverageTicketByMonth,
+            getAverageTicket: getAverageTicket,
+            getTotalSalesByLastDays: getTotalSalesByLastDays,
+            getTotalSales: getTotalSales,
+            getCountSales: getCountSales
         };
 
         return service;
@@ -192,24 +195,26 @@
             return deferred.promise;
         }
 
-        function getTotalSalesByLast7Days() {
+        function getTotalSalesByLastDays(numberOfDays) {
             var deferred = $q.defer();
 
             Sale.aggregate([
                 {
                     $match: {
-                        createdAt: { $gte: $moment().subtract(7, 'days').toDate() }
+                        createdAt: { $gte: $moment().subtract(numberOfDays, 'days').toDate() }
                     }
                 },
                 {
                     $project: {
                         total: true,
-                        day: { $dayOfMonth: '$createdAt' }
+                        day: { $dayOfMonth: '$createdAt' },
+                        month: { $month: '$createdAt' }
                     }
                 },
                 {
                     $group: {
                         _id: '$day',
+                        month: { $first: '$month' },
                         amount: { $sum: '$total' }
                     }
                 }
@@ -221,30 +226,80 @@
             return deferred.promise;
         }
 
-        function getTotalSalesByLast30Days() {
+        function getAverageTicketByMonth() {
             var deferred = $q.defer();
 
             Sale.aggregate([
                 {
-                    $match: {
-                        createdAt: { $gte: $moment().subtract(30, 'days').toDate() }
-                    }
-                },
-                {
                     $project: {
                         total: true,
-                        day: { $dayOfMonth: '$createdAt' },
-                        month: { $month: '$createdAt'}
+                        month: { $month: '$createdAt' }
                     }
                 },
                 {
                     $group: {
-                        _id: '$day',
-                        month: { $first: '$month' },
+                        _id: '$month',
+                        amount: { $avg: '$total' }
+                    }
+                }
+            ], function (err, results) {
+                if (err) deferred.reject(err);
+                deferred.resolve(results);
+            });
+
+            return deferred.promise;
+        }
+
+        function getAverageTicket() {
+            var deferred = $q.defer();
+
+            Sale.aggregate([
+                {
+                    $project: {
+                        total: true
+                    }
+                },
+                {
+                    $group: {
+                        _id: 1,
+                        amount: { $avg: '$total' }
+                    }
+                }
+            ], function (err, results) {
+                if (err) deferred.reject(err);
+                deferred.resolve(results);
+            });
+
+            return deferred.promise;
+        }
+
+        function getTotalSales() {
+            var deferred = $q.defer();
+
+            Sale.aggregate([
+                {
+                    $project: {
+                        total: true
+                    }
+                },
+                {
+                    $group: {
+                        _id: 1,
                         amount: { $sum: '$total' }
                     }
                 }
             ], function (err, results) {
+                if (err) deferred.reject(err);
+                deferred.resolve(results);
+            });
+
+            return deferred.promise;
+        }
+
+        function getCountSales() {
+            var deferred = $q.defer();
+
+            Sale.find({}).count(function (err, results) {
                 if (err) deferred.reject(err);
                 deferred.resolve(results);
             });
