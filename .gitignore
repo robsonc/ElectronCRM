@@ -52,3 +52,4 @@ config.json
 Ragnarok-win32-x64
 dist
 client_id.json
+app/libs
